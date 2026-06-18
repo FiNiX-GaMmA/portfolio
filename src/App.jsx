@@ -729,15 +729,21 @@ export default function App() {
               </div>
             </div>
 
-            {/* Miniature bottom log */}
-            <div className="mt-5 bg-slate-50 p-2.5 rounded-none font-mono text-[10px] text-slate-700 border-2 border-slate-900">
-              <p className="text-brainlabs-yellow font-black">
+            {/* Miniature bottom terminal log */}
+            <div className="mt-5 bg-slate-950 p-3.5 rounded-md font-mono text-[10px] border-2 border-slate-900 shadow-inner">
+              {/* Window Controls */}
+              <div className="flex gap-1.5 mb-2 border-b border-slate-800 pb-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 border border-slate-950" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 border border-slate-950" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-500/80 border border-slate-950" />
+              </div>
+              <p className="text-emerald-400 font-black">
                 &gt; sys.load_metrics().status
               </p>
-              <p className="text-slate-900 font-bold">
+              <p className="text-white font-bold pl-2">
                 &quot;Operational Excellence: 100% timesheets&quot;
               </p>
-              <p className="text-brainlabs-blue font-black">
+              <p className="text-sky-400 font-black mt-1">
                 &gt; sys.run_pipeline() : Success (35% speedup)
               </p>
             </div>
