@@ -9,8 +9,8 @@
 }
 
 ::selection {
-    background-color: #ff5c8d;
-    color: #ffffff;
+    background-color: #ffdd33;
+    color: #1b1b1b;
 }
 
 /* Custom Scrollbar to maintain the boxy look */
@@ -40,7 +40,7 @@
 }
 
 .boxy-shadow-pink {
-    box-shadow: 4px 4px 0px 0px #ff5c8d;
+    box-shadow: 4px 4px 0px 0px #ffdd33;
 }
 
 .boxy-shadow-blue {
@@ -54,7 +54,7 @@
 .boxy-shadow-double {
     box-shadow:
         4px 4px 0px 0px #1b1b1b,
-        8px 8px 0px 0px #ff5c8d;
+        8px 8px 0px 0px #ffdd33;
 }
 
 /* Hover transitions */
@@ -69,7 +69,7 @@
 
 .boxy-hover-pink:hover {
     transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0px 0px #ff5c8d;
+    box-shadow: 8px 8px 0px 0px #ffdd33;
 }
 
 .boxy-hover-blue:hover {

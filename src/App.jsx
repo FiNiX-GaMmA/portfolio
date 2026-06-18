@@ -361,6 +361,62 @@ export default function App() {
     }, 1000);
   };
 
+  // Helper to render markdown bolding and bullet list items inside chatbot bubbles
+  const renderMarkdown = (text) => {
+    if (!text) return null;
+    const lines = text.split("\n");
+    return lines.map((line, lineIdx) => {
+      let currentLine = line;
+      const isListItem =
+        currentLine.trim().startsWith("* ") ||
+        currentLine.trim().startsWith("- ");
+      if (isListItem) {
+        currentLine = currentLine.trim().replace(/^[\*\-]\s+/, "");
+      }
+
+      // Split by bold regex to extract matches
+      const parts = currentLine.split(/\*\*([^*]+)\*\*/g);
+      const parsedLine = parts.map((part, partIdx) => {
+        if (partIdx % 2 === 1) {
+          // Odd elements are wrapped in bold tags
+          return (
+            <strong
+              key={partIdx}
+              className="font-extrabold text-slate-950 underline decoration-brainlabs-yellow decoration-2"
+            >
+              {part}
+            </strong>
+          );
+        }
+        return part;
+      });
+
+      if (isListItem) {
+        return (
+          <li
+            key={lineIdx}
+            className="ml-5 list-disc text-xs sm:text-sm text-slate-900 font-bold my-1 leading-relaxed"
+          >
+            {parsedLine}
+          </li>
+        );
+      }
+
+      if (line.trim() === "") {
+        return <div key={lineIdx} className="h-2" />;
+      }
+
+      return (
+        <p
+          key={lineIdx}
+          className="text-xs sm:text-sm text-slate-900 font-bold my-1 leading-relaxed"
+        >
+          {parsedLine}
+        </p>
+      );
+    });
+  };
+
   // Get visible indices for the carousel
   const getVisibleProjects = () => {
     const list = [];
@@ -371,13 +427,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-brainlabs-cream text-slate-900 font-sans flex flex-col relative selection:bg-brainlabs-pink selection:text-white">
+    <div className="min-h-screen bg-brainlabs-cream text-slate-900 font-sans flex flex-col relative selection:bg-brainlabs-yellow selection:text-slate-900">
       {/* 1. Header & Navigation */}
       <header className="sticky top-0 z-50 bg-white border-b-3 border-slate-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-slate-900 border-2 border-slate-900 rounded-lg flex items-center justify-center relative shadow-[3px_3px_0px_0px_#ff5c8d]">
+            <div className="w-10 h-10 bg-slate-900 border-2 border-slate-900 rounded-lg flex items-center justify-center relative shadow-[3px_3px_0px_0px_#ffdd33]">
               <span className="text-white font-extrabold text-xl font-mono">
                 A
               </span>
@@ -386,7 +442,7 @@ export default function App() {
             <div>
               <h1 className="font-extrabold tracking-tighter text-xl text-slate-900 flex items-center gap-1.5 leading-none">
                 ARYAROOP{" "}
-                <span className="text-brainlabs-pink font-light">×</span>{" "}
+                <span className="text-brainlabs-yellow font-light">×</span>{" "}
                 MAJUMDER
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-slate-600 font-black font-mono">
@@ -399,37 +455,37 @@ export default function App() {
           <nav className="hidden md:flex items-center gap-8 font-black text-sm text-slate-800">
             <a
               href="#about"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               About
             </a>
             <a
               href="#projects"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               Projects
             </a>
             <a
               href="#timeline"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               Milestones
             </a>
             <a
               href="#certifications"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               Certifications
             </a>
             <a
               href="#accolades"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               Testimonials
             </a>
             <a
               href="#chatbot"
-              className="hover:text-brainlabs-pink transition-colors flex items-center gap-1"
+              className="hover:text-brainlabs-yellow transition-colors flex items-center gap-1"
             >
               <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block animate-ping" />{" "}
               Ask AI
@@ -441,10 +497,9 @@ export default function App() {
             <a
               href="./Aryaroop_Majumder_ATS_Resume.pdf"
               download="Aryaroop_Majumder_Resume.pdf"
-              className="bg-white text-slate-900 border-3 border-slate-900 px-5 py-2 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#ff5c8d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ff5c8d] transition-all flex items-center gap-2"
+              className="bg-white text-slate-900 border-3 border-slate-900 px-5 py-2 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ffdd33] transition-all flex items-center gap-2"
             >
-              <Download className="w-4 h-4 text-brainlabs-pink" /> Download
-              Resume
+              <Download className="w-4 h-4 text-slate-900" /> Download Resume
             </a>
           </div>
 
@@ -474,42 +529,42 @@ export default function App() {
                 <a
                   href="#about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink"
+                  className="hover:text-brainlabs-yellow"
                 >
                   About
                 </a>
                 <a
                   href="#projects"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink"
+                  className="hover:text-brainlabs-yellow"
                 >
                   Projects
                 </a>
                 <a
                   href="#timeline"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink"
+                  className="hover:text-brainlabs-yellow"
                 >
                   Milestones
                 </a>
                 <a
                   href="#certifications"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink"
+                  className="hover:text-brainlabs-yellow"
                 >
                   Certifications
                 </a>
                 <a
                   href="#accolades"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink"
+                  className="hover:text-brainlabs-yellow"
                 >
                   Testimonials
                 </a>
                 <a
                   href="#chatbot"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-pink flex items-center gap-2"
+                  className="hover:text-brainlabs-yellow flex items-center gap-2"
                 >
                   <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block" />{" "}
                   Chat with Cortex AI
@@ -517,7 +572,7 @@ export default function App() {
                 <a
                   href="./Aryaroop_Majumder_ATS_Resume.pdf"
                   download="Aryaroop_Majumder_Resume.pdf"
-                  className="bg-brainlabs-pink text-white border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2"
+                  className="bg-brainlabs-yellow text-slate-900 border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2"
                 >
                   <Download className="w-4 h-4" /> Download Resume
                 </a>
@@ -536,14 +591,14 @@ export default function App() {
         <div className="md:col-span-7 flex flex-col gap-6">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white text-slate-900 border-3 border-slate-900 px-4 py-2 text-xs font-black w-fit uppercase tracking-wider shadow-[3px_3px_0px_0px_#80dbff]">
-            <Zap className="w-4 h-4 text-brainlabs-pink fill-brainlabs-pink" />
+            <Zap className="w-4 h-4 text-brainlabs-yellow fill-brainlabs-yellow" />
             The most agentic portfolio
           </div>
 
           {/* Headline */}
           <h2 className="text-4xl sm:text-6xl font-black tracking-tighter leading-none text-slate-900 uppercase">
             What's your next best move to{" "}
-            <span className="text-brainlabs-pink underline decoration-brainlabs-blue decoration-4 sm:decoration-8">
+            <span className="text-[#ff5c8d] underline decoration-brainlabs-blue decoration-4 sm:decoration-8">
               maximize
             </span>{" "}
             AI &amp; Engineering?
@@ -563,7 +618,7 @@ export default function App() {
           <div className="flex flex-wrap gap-4 mt-2">
             <a
               href="#projects"
-              className="bg-slate-900 text-white border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#ff5c8d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ff5c8d] transition-all flex items-center gap-2"
+              className="bg-slate-900 text-white border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ffdd33] transition-all flex items-center gap-2"
             >
               Explore My Works{" "}
               <ChevronRight className="w-5 h-5 text-brainlabs-blue" />
@@ -572,8 +627,8 @@ export default function App() {
               href="#chatbot"
               className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2"
             >
-              <MessageSquare className="w-5 h-5 text-brainlabs-pink" /> Consult
-              Cortex-Arya AI
+              <MessageSquare className="w-5 h-5 text-brainlabs-yellow" />{" "}
+              Consult Cortex-Arya AI
             </a>
           </div>
 
@@ -583,7 +638,7 @@ export default function App() {
               href="https://github.com/FiNiX-GaMmA"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brainlabs-pink transition-colors"
+              className="flex items-center gap-1.5 hover:text-brainlabs-yellow transition-colors"
             >
               <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
                 GitHub
@@ -594,7 +649,7 @@ export default function App() {
               href="https://aryaroop04.medium.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brainlabs-pink transition-colors"
+              className="flex items-center gap-1.5 hover:text-brainlabs-yellow transition-colors"
             >
               <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
                 Medium
@@ -607,7 +662,7 @@ export default function App() {
         {/* Hero Right Dashboard Panel */}
         <div className="md:col-span-5 relative">
           {/* Main Boxy Dashboard Card */}
-          <div className="bg-white border-3 border-slate-900 p-6 rounded-none shadow-[6px_6px_0px_0px_#ff5c8d] relative overflow-hidden">
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-none shadow-[6px_6px_0px_0px_#ffdd33] relative overflow-hidden">
             {/* Red accent dot */}
             <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-50 text-red-600 border-2 border-red-200 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" />{" "}
@@ -616,7 +671,7 @@ export default function App() {
 
             {/* Title / Header */}
             <div className="border-b-3 border-slate-900 pb-4 mb-4">
-              <h3 className="font-mono font-black text-xs text-brainlabs-pink uppercase tracking-widest">
+              <h3 className="font-mono font-black text-xs text-brainlabs-yellow uppercase tracking-widest">
                 Active System Profile
               </h3>
               <p className="font-black text-2xl tracking-tight text-slate-900">
@@ -630,7 +685,7 @@ export default function App() {
                 <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
                   Title Level
                 </span>
-                <span className="text-xs font-black text-white bg-brainlabs-pink border-2 border-slate-900 px-2.5 py-0.5 shadow-[1.5px_1.5px_0px_0px_#000]">
+                <span className="text-xs font-black text-slate-900 bg-brainlabs-yellow border-2 border-slate-900 px-2.5 py-0.5 shadow-[1.5px_1.5px_0px_0px_#000]">
                   Specialist, Data Science
                 </span>
               </div>
@@ -650,8 +705,8 @@ export default function App() {
                 </span>
                 <div className="flex flex-col gap-1.5 items-end">
                   <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-pink-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
-                    <Award className="w-4 h-4 text-brainlabs-pink" /> Anthropic
-                    MCP
+                    <Award className="w-4 h-4 text-brainlabs-yellow" />{" "}
+                    Anthropic MCP
                   </span>
                   <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-yellow-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
                     <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />{" "}
@@ -677,7 +732,7 @@ export default function App() {
 
             {/* Miniature bottom log */}
             <div className="mt-5 bg-slate-50 p-2.5 rounded-none font-mono text-[10px] text-slate-700 border-2 border-slate-900">
-              <p className="text-brainlabs-pink font-black">
+              <p className="text-brainlabs-yellow font-black">
                 &gt; sys.load_metrics().status
               </p>
               <p className="text-slate-900 font-bold">
@@ -690,7 +745,7 @@ export default function App() {
           </div>
 
           {/* Absolute Background Boxy Outlines */}
-          <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-slate-900 -z-10 bg-brainlabs-pink/20" />
+          <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-slate-900 -z-10 bg-brainlabs-yellow/20" />
           <div className="absolute -bottom-6 -right-6 w-full h-full border-3 border-slate-900 -z-20 bg-brainlabs-blue/20" />
         </div>
       </section>
@@ -705,7 +760,7 @@ export default function App() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-xs bg-pink-50 text-brainlabs-pink border-3 border-brainlabs-pink px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff]">
+            <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff] rounded-md font-mono">
               Verified AI Semantic Agent
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -718,7 +773,7 @@ export default function App() {
           </div>
 
           {/* Chat Interface Panel (Light-Themed IDE) */}
-          <div className="border-3 border-slate-900 bg-white rounded-none overflow-hidden shadow-[8px_8px_0px_0px_#ff5c8d]">
+          <div className="border-3 border-slate-900 bg-white rounded-none overflow-hidden shadow-[8px_8px_0px_0px_#ffdd33]">
             {/* Terminal Window Header */}
             <div className="bg-slate-50 border-b-3 border-slate-900 px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -729,7 +784,7 @@ export default function App() {
                   cortex_assistant.py
                 </span>
               </div>
-              <div className="font-mono text-[10px] text-brainlabs-pink font-black uppercase tracking-wider">
+              <div className="font-mono text-[10px] text-brainlabs-yellow font-black uppercase tracking-wider">
                 Model: Gemini 3.5 + AryaRAG v1
               </div>
             </div>
@@ -750,20 +805,20 @@ export default function App() {
                     <div
                       className={`max-w-[85%] rounded-lg border-2 p-4 ${
                         m.role === "user"
-                          ? "bg-brainlabs-pink text-white border-slate-900 shadow-[3px_3px_0px_0px_#1b1b1b]"
-                          : "bg-white text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#ff5c8d]"
+                          ? "bg-brainlabs-yellow text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#1b1b1b]"
+                          : "bg-white text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#ffdd33]"
                       }`}
                     >
                       <p
-                        className={`font-black text-[9px] uppercase tracking-widest mb-1.5 ${m.role === "user" ? "text-pink-100" : "text-brainlabs-pink font-black"}`}
+                        className={`font-black text-[9px] uppercase tracking-widest mb-1.5 ${m.role === "user" ? "text-slate-900" : "text-[#ff5c8d] font-black"}`}
                       >
                         {m.role === "user"
                           ? "► Selected Query"
                           : "🤖 Cortex AI"}
                       </p>
-                      <p className="whitespace-pre-line leading-relaxed text-xs sm:text-sm text-slate-900 font-bold">
-                        {m.content}
-                      </p>
+                      <div className="space-y-1">
+                        {renderMarkdown(m.content)}
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -774,8 +829,8 @@ export default function App() {
                     animate={{ opacity: 1 }}
                     className="flex justify-start"
                   >
-                    <div className="bg-white border-2 border-slate-900 p-3 rounded-lg shadow-[3px_3px_0px_0px_#ff5c8d] flex items-center gap-2.5 text-slate-800 font-mono text-xs font-black">
-                      <RefreshCw className="w-4 h-4 animate-spin text-brainlabs-pink" />
+                    <div className="bg-white border-2 border-slate-900 p-3 rounded-lg shadow-[3px_3px_0px_0px_#ffdd33] flex items-center gap-2.5 text-slate-800 font-mono text-xs font-black">
+                      <RefreshCw className="w-4 h-4 animate-spin text-brainlabs-yellow" />
                       <span>RAG matching semantic vectors...</span>
                     </div>
                   </motion.div>
@@ -787,7 +842,7 @@ export default function App() {
             {/* Select Prompt Panel - High contrast light theme */}
             <div className="bg-white p-6">
               <p className="font-mono text-xs uppercase font-black text-slate-800 mb-4 flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-brainlabs-pink" />
+                <Terminal className="w-4 h-4 text-brainlabs-yellow" />
                 Select Vector Query to Run:
               </p>
 
@@ -797,16 +852,16 @@ export default function App() {
                     key={i}
                     disabled={isTyping || isStreaming}
                     onClick={() => handlePromptClick(p)}
-                    className={`bg-slate-50 text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-pink hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ff5c8d] rounded-lg font-black ${
+                    className={`bg-slate-50 text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-yellow hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ffdd33] rounded-lg font-black ${
                       isTyping || isStreaming
                         ? "opacity-50 cursor-not-allowed"
                         : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
                     }`}
                   >
-                    <span className="group-hover:text-brainlabs-pink transition-colors pr-2 leading-snug">
+                    <span className="transition-colors pr-2 leading-snug text-slate-900">
                       {p.q}
                     </span>
-                    <Play className="w-3.5 h-3.5 text-slate-900 group-hover:text-brainlabs-pink transition-all shrink-0 fill-slate-900 group-hover:fill-brainlabs-pink" />
+                    <Play className="w-3.5 h-3.5 text-slate-900 group-hover:text-[#ff5c8d] transition-all shrink-0 fill-slate-900 group-hover:fill-[#ff5c8d]" />
                   </button>
                 ))}
               </div>
@@ -832,10 +887,10 @@ export default function App() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Card 1 */}
-          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ff5c8d] hover:shadow-[8px_8px_0px_0px_#ff5c8d] transition-all flex flex-col justify-between rounded-lg">
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ffdd33] hover:shadow-[8px_8px_0px_0px_#ffdd33] transition-all flex flex-col justify-between rounded-lg">
             <div>
               <div className="w-12 h-12 bg-pink-50 border-2 border-pink-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
-                <Search className="w-6 h-6 text-brainlabs-pink" />
+                <Search className="w-6 h-6 text-brainlabs-yellow" />
               </div>
               <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
                 Semantic AI &amp; SEO
@@ -872,7 +927,7 @@ export default function App() {
           </div>
 
           {/* Card 3 */}
-          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ff5c8d] hover:shadow-[8px_8px_0px_0px_#ff5c8d] transition-all flex flex-col justify-between rounded-lg">
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ffdd33] hover:shadow-[8px_8px_0px_0px_#ffdd33] transition-all flex flex-col justify-between rounded-lg">
             <div>
               <div className="w-12 h-12 bg-yellow-50 border-2 border-yellow-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
                 <Cpu className="w-6 h-6 text-yellow-600" />
@@ -920,7 +975,7 @@ export default function App() {
         className="py-20 md:py-28 border-b-3 border-slate-900 bg-brainlabs-cream overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-          <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+          <span className="text-xs bg-white text-brainlabs-yellow border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
             Engineering Artifacts
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
@@ -942,10 +997,10 @@ export default function App() {
             {[...projects, ...projects].map((proj, idx) => (
               <div
                 key={`${proj.id}-${idx}`}
-                className="w-[340px] bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px] shrink-0 boxy-hover"
+                className="w-[340px] bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ffdd33] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px] shrink-0 boxy-hover"
               >
                 {proj.featured && (
-                  <div className="absolute top-0 right-0 bg-brainlabs-pink text-white border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
+                  <div className="absolute top-0 right-0 bg-brainlabs-yellow text-slate-900 border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
                     Featured
                   </div>
                 )}
@@ -991,7 +1046,7 @@ export default function App() {
                         href={proj.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-black text-slate-900 hover:text-brainlabs-pink flex items-center gap-1 hover:underline"
+                        className="text-xs font-black text-slate-900 hover:text-brainlabs-yellow flex items-center gap-1 hover:underline"
                       >
                         GitHub Repo{" "}
                         <ArrowUpRight className="w-4 h-4 text-slate-900" />
@@ -1002,7 +1057,7 @@ export default function App() {
                         href={proj.pypi}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] font-black text-brainlabs-pink bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-pink rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
+                        className="text-[10px] font-black text-brainlabs-yellow bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-yellow rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
                       >
                         PyPI
                       </a>
@@ -1019,7 +1074,7 @@ export default function App() {
           <div className="mt-12 bg-white border-3 border-slate-900 p-8 flex flex-col md:flex-row items-center justify-between shadow-[6px_6px_0px_0px_#80dbff] gap-6 rounded-lg">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 bg-pink-50 border-2 border-slate-900 rounded-full flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
-                <BookOpen className="w-8 h-8 text-brainlabs-pink" />
+                <BookOpen className="w-8 h-8 text-brainlabs-yellow" />
               </div>
               <div>
                 <h3 className="font-extrabold text-lg sm:text-xl text-slate-950 uppercase leading-none">
@@ -1038,7 +1093,7 @@ export default function App() {
               className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2 w-full md:w-auto justify-center rounded-lg font-black"
             >
               Visit Medium Blog{" "}
-              <ExternalLink className="w-4 h-4 text-brainlabs-pink" />
+              <ExternalLink className="w-4 h-4 text-brainlabs-yellow" />
             </a>
           </div>
         </div>
@@ -1050,7 +1105,7 @@ export default function App() {
         className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900"
       >
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs bg-pink-50 text-brainlabs-pink border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
+          <span className="text-xs bg-pink-50 text-brainlabs-yellow border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
             Professional Timeline
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -1065,13 +1120,13 @@ export default function App() {
         {/* Timeline List of Cards */}
         <div className="flex flex-col gap-8 max-w-4xl mx-auto relative pl-6 border-l-4 border-slate-900 py-2">
           {/* Milestone 1 */}
-          <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#ff5c8d]">
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#ffdd33]">
             {/* Timeline Circle Bullet */}
-            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-pink border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-yellow border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
               <div>
-                <span className="text-[10px] font-black uppercase bg-pink-50 border-2 border-brainlabs-pink text-brainlabs-pink px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                <span className="text-[10px] font-black uppercase bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
                   Full-Time Specialist
                 </span>
                 <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
@@ -1117,7 +1172,7 @@ export default function App() {
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
               <div>
-                <span className="text-[10px] font-black uppercase bg-blue-50 border-2 border-brainlabs-blue text-brainlabs-blue px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                <span className="text-[10px] font-black uppercase bg-brainlabs-blue text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
                   Full-Time Associate
                 </span>
                 <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
@@ -1162,7 +1217,7 @@ export default function App() {
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
               <div>
-                <span className="text-[10px] font-black uppercase bg-slate-100 border-2 border-slate-500 text-slate-600 px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                <span className="text-[10px] font-black uppercase bg-slate-200 text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
                   Engineering Intern
                 </span>
                 <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
@@ -1205,7 +1260,7 @@ export default function App() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="text-xs bg-pink-50 text-brainlabs-pink border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
+            <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)] rounded-md font-mono">
               Academic Credentials
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
@@ -1294,7 +1349,7 @@ export default function App() {
               .map((cert, index) => {
                 const shadowColor =
                   cert.color === "pink"
-                    ? "shadow-[3px_3px_0px_0px_#ff5c8d]"
+                    ? "shadow-[3px_3px_0px_0px_#ffdd33]"
                     : cert.color === "blue"
                       ? "shadow-[3px_3px_0px_0px_#80dbff]"
                       : cert.color === "yellow"
@@ -1302,7 +1357,7 @@ export default function App() {
                         : "shadow-[3px_3px_0px_0px_#00FF6A]";
                 const shadowHover =
                   cert.color === "pink"
-                    ? "hover:shadow-[5px_5px_0px_0px_#ff5c8d]"
+                    ? "hover:shadow-[5px_5px_0px_0px_#ffdd33]"
                     : cert.color === "blue"
                       ? "hover:shadow-[5px_5px_0px_0px_#80dbff]"
                       : cert.color === "yellow"
@@ -1338,7 +1393,7 @@ export default function App() {
                           href={cert.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] font-black text-brainlabs-pink hover:text-slate-900 transition-colors hover:underline"
+                          className="inline-flex items-center gap-1 text-[11px] font-black text-slate-900 hover:text-brainlabs-yellow transition-colors hover:underline"
                         >
                           Verify Credential{" "}
                           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1358,12 +1413,12 @@ export default function App() {
         className="py-20 md:py-28 bg-white border-b-3 border-slate-900 relative overflow-hidden"
       >
         {/* Accent decorations */}
-        <div className="absolute top-24 left-10 w-24 h-24 bg-brainlabs-pink/5 rounded-full blur-2xl" />
+        <div className="absolute top-24 left-10 w-24 h-24 bg-brainlabs-yellow/5 rounded-full blur-2xl" />
         <div className="absolute bottom-24 right-10 w-32 h-32 bg-brainlabs-blue/5 rounded-full blur-2xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs bg-blue-50 text-brainlabs-blue border-2 border-blue-200 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#ff5c8d]">
+            <span className="text-xs bg-blue-50 text-brainlabs-blue border-2 border-blue-200 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#ffdd33]">
               Proven Delivery Value
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -1381,7 +1436,7 @@ export default function App() {
               return (
                 <div
                   key={idx}
-                  className="bg-slate-50 border-2 border-slate-900 p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[4px_4px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all relative rounded-lg"
+                  className="bg-slate-50 border-2 border-slate-900 p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[4px_4px_0px_0px_#ffdd33] hover:border-pink-300 transition-all relative rounded-lg"
                 >
                   <div className="absolute top-4 right-4">
                     <MessageSquare className="w-5 h-5 text-slate-400" />
@@ -1389,7 +1444,7 @@ export default function App() {
 
                   <div>
                     {/* Feedback category badge */}
-                    <span className="inline-block text-[9px] uppercase font-black tracking-wider text-brainlabs-pink bg-pink-50 border-2 border-slate-900 px-2 py-0.5 rounded-md mb-4 font-black">
+                    <span className="inline-block text-[9px] uppercase font-black tracking-wider text-slate-900 bg-brainlabs-yellow border-2 border-slate-900 px-2 py-0.5 rounded-md mb-4">
                       {fb.source || "Public Shoutout"}
                     </span>
 
@@ -1427,8 +1482,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-12 gap-8 border-b-2 border-slate-200 pb-12">
           <div className="md:col-span-5 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white border-2 border-slate-900 rounded-lg flex items-center justify-center shadow-[1.5px_1.5px_0px_0px_#ff5c8d]">
-                <span className="text-brainlabs-pink font-extrabold text-xl font-mono">
+              <div className="w-10 h-10 bg-slate-900 border-2 border-slate-900 rounded-lg flex items-center justify-center shadow-[1.5px_1.5px_0px_0px_#ffdd33]">
+                <span className="text-white font-extrabold text-xl font-mono">
                   A
                 </span>
               </div>
@@ -1469,7 +1524,7 @@ export default function App() {
                 ✉️ Email:{" "}
                 <a
                   href="mailto:aryaroop04@gmail.com"
-                  className="hover:text-brainlabs-pink hover:underline"
+                  className="hover:text-brainlabs-yellow hover:underline"
                 >
                   aryaroop04@gmail.com
                 </a>
@@ -1487,7 +1542,7 @@ export default function App() {
               href="https://github.com/FiNiX-GaMmA"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               GitHub
             </a>
@@ -1495,7 +1550,7 @@ export default function App() {
               href="https://www.linkedin.com/in/aryaroop-majumder/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               LinkedIn
             </a>
@@ -1503,7 +1558,7 @@ export default function App() {
               href="https://aryaroop04.medium.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-pink transition-colors"
+              className="hover:text-brainlabs-yellow transition-colors"
             >
               Medium
             </a>
