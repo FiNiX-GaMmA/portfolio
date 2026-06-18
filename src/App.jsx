@@ -872,152 +872,133 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. Autosliding Projects Carousel Section */}
+      {/* 5. Seamless Infinite Projects Marquee */}
       <section
         id="projects"
-        className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900 bg-brainlabs-cream"
+        className="py-20 md:py-28 border-b-3 border-slate-900 bg-brainlabs-cream overflow-hidden"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
-          <div>
-            <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
-              Engineering Artifacts
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
-              My Full History of Projects
-            </h2>
-            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2 max-w-xl">
-              An autosliding horizontal carousel displaying all projects built
-              over the years, direct from your resume files.
-            </p>
-          </div>
-
-          {/* Carousel Manual Controls */}
-          <div className="flex items-center gap-3 mt-6 md:mt-0">
-            <button
-              onClick={handlePrevProject}
-              className="w-12 h-12 bg-white border-3 border-slate-900 rounded-lg flex items-center justify-center shadow-[3px_3px_0px_0px_#1b1b1b] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] transition-all cursor-pointer"
-            >
-              <ArrowLeft className="w-5 h-5 text-slate-900 font-black" />
-            </button>
-            <button
-              onClick={handleNextProject}
-              className="w-12 h-12 bg-white border-3 border-slate-900 rounded-lg flex items-center justify-center shadow-[3px_3px_0px_0px_#1b1b1b] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] transition-all cursor-pointer"
-            >
-              <ArrowRight className="w-5 h-5 text-slate-900 font-black" />
-            </button>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+            Engineering Artifacts
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
+            My Full History of Projects
+          </h2>
+          <p className="text-slate-700 font-bold text-sm sm:text-base mt-2 max-w-xl">
+            A seamless infinite marquee displaying all projects built over the
+            years. Hover over any card to pause and inspect!
+          </p>
         </div>
 
-        {/* Carousel Grid Track */}
-        <div
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          onMouseEnter={() => setCarouselPaused(true)}
-          onMouseLeave={() => setCarouselPaused(false)}
-        >
-          {getVisibleProjects().map((proj) => (
-            <motion.div
-              key={proj.id}
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px]"
-            >
-              {proj.featured && (
-                <div className="absolute top-0 right-0 bg-brainlabs-pink text-white border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
-                  Featured
-                </div>
-              )}
+        {/* Seamless Scrolling Marquee Container */}
+        <div className="w-full relative py-6 overflow-hidden">
+          {/* Edge Fades */}
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-brainlabs-cream to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-brainlabs-cream to-transparent z-10 pointer-events-none" />
 
-              <div>
-                <span className="text-[9px] uppercase font-black tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 rounded border-2 border-slate-900">
-                  {proj.category}
-                </span>
-                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 leading-tight mt-3">
-                  {proj.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold mt-3 overflow-hidden text-ellipsis line-clamp-4">
-                  {proj.desc}
-                </p>
-              </div>
+          <div className="animate-marquee-left pause-on-hover flex gap-6">
+            {[...projects, ...projects].map((proj, idx) => (
+              <div
+                key={`${proj.id}-${idx}`}
+                className="w-[340px] bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px] shrink-0 boxy-hover"
+              >
+                {proj.featured && (
+                  <div className="absolute top-0 right-0 bg-brainlabs-pink text-white border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
+                    Featured
+                  </div>
+                )}
 
-              <div>
-                {/* Tech stack badges */}
-                <div className="flex flex-wrap gap-1 mb-4">
-                  {proj.tech.slice(0, 4).map((t, i) => (
-                    <span
-                      key={i}
-                      className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-700"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                  {proj.tech.length > 4 && (
-                    <span className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-500">
-                      +{proj.tech.length - 4} more
-                    </span>
-                  )}
+                <div>
+                  <span className="text-[9px] uppercase font-black tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 rounded border-2 border-slate-900">
+                    {proj.category}
+                  </span>
+                  <h3 className="font-extrabold text-base sm:text-lg text-slate-900 leading-tight mt-3">
+                    {proj.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold mt-3 overflow-hidden text-ellipsis line-clamp-4">
+                    {proj.desc}
+                  </p>
                 </div>
 
-                {/* CTAs */}
-                <div className="flex items-center gap-4 pt-3 border-t-2 border-slate-100">
-                  {proj.proprietary ? (
-                    <span className="text-xs font-black text-slate-500 flex items-center gap-1.5 bg-slate-100/60 p-1.5 px-2.5 border-2 border-slate-300 rounded font-mono">
-                      🔒 Enterprise Proprietary
-                    </span>
-                  ) : (
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-black text-slate-900 hover:text-brainlabs-pink flex items-center gap-1 hover:underline"
-                    >
-                      GitHub Repo{" "}
-                      <ArrowUpRight className="w-4 h-4 text-slate-900" />
-                    </a>
-                  )}
-                  {proj.pypi && (
-                    <a
-                      href={proj.pypi}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] font-black text-brainlabs-pink bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-pink rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
-                    >
-                      PyPI
-                    </a>
-                  )}
+                <div>
+                  {/* Tech stack badges */}
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {proj.tech.slice(0, 4).map((t, i) => (
+                      <span
+                        key={i}
+                        className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-700"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    {proj.tech.length > 4 && (
+                      <span className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-500">
+                        +{proj.tech.length - 4} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* CTAs */}
+                  <div className="flex items-center gap-4 pt-3 border-t-2 border-slate-100">
+                    {proj.proprietary ? (
+                      <span className="text-xs font-black text-slate-500 flex items-center gap-1.5 bg-slate-100/60 p-1.5 px-2.5 border-2 border-slate-300 rounded font-mono">
+                        🔒 Enterprise Proprietary
+                      </span>
+                    ) : (
+                      <a
+                        href={proj.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-black text-slate-900 hover:text-brainlabs-pink flex items-center gap-1 hover:underline"
+                      >
+                        GitHub Repo{" "}
+                        <ArrowUpRight className="w-4 h-4 text-slate-900" />
+                      </a>
+                    )}
+                    {proj.pypi && (
+                      <a
+                        href={proj.pypi}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-black text-brainlabs-pink bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-pink rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
+                      >
+                        PyPI
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Medium Blog Banner */}
-        <div className="mt-12 bg-white border-3 border-slate-900 p-8 flex flex-col md:flex-row items-center justify-between shadow-[6px_6px_0px_0px_#80dbff] gap-6 rounded-lg">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-pink-50 border-2 border-slate-900 rounded-full flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
-              <BookOpen className="w-8 h-8 text-brainlabs-pink" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mt-12 bg-white border-3 border-slate-900 p-8 flex flex-col md:flex-row items-center justify-between shadow-[6px_6px_0px_0px_#80dbff] gap-6 rounded-lg">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-pink-50 border-2 border-slate-900 rounded-full flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+                <BookOpen className="w-8 h-8 text-brainlabs-pink" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-lg sm:text-xl text-slate-950 uppercase leading-none">
+                  Read Arya's Medium Publication
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-700 font-bold mt-2">
+                  Articles on RAG chatbots, docker-workflows, and deploying
+                  cloud models.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-extrabold text-lg sm:text-xl text-slate-950 uppercase leading-none">
-                Read Arya's Medium Publication
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-700 font-bold mt-2">
-                Articles on RAG chatbots, docker-workflows, and deploying cloud
-                models.
-              </p>
-            </div>
+            <a
+              href="https://aryaroop04.medium.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2 w-full md:w-auto justify-center rounded-lg font-black"
+            >
+              Visit Medium Blog{" "}
+              <ExternalLink className="w-4 h-4 text-brainlabs-pink" />
+            </a>
           </div>
-          <a
-            href="https://aryaroop04.medium.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2 w-full md:w-auto justify-center rounded-lg font-black"
-          >
-            Visit Medium Blog{" "}
-            <ExternalLink className="w-4 h-4 text-brainlabs-pink" />
-          </a>
         </div>
       </section>
 
@@ -1175,145 +1156,157 @@ export default function App() {
         </div>
       </section>
 
-      {/* 6.5 Dedicated Certifications Section */}
+      {/* 6.5 Dedicated Certifications Section - Seamless Infinite Marquee */}
       <section
         id="certifications"
-        className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900 bg-brainlabs-cream/30"
+        className="py-20 md:py-28 border-b-3 border-slate-900 bg-white overflow-hidden"
       >
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff]">
-            Academic Credentials
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
-            Professional Certifications
-          </h2>
-          <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
-            Verified professional and technical credentials specializing in
-            Advanced GenAI, Big Data, and Machine Learning.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="text-xs bg-pink-50 text-brainlabs-pink border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
+              Academic Credentials
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
+              Professional Certifications
+            </h2>
+            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+              Verified professional credentials. Hover over any card to pause
+              and verify live!
+            </p>
+          </div>
         </div>
 
-        {/* Certifications Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {[
-            {
-              title: "Introduction to Model Context Protocol (MCP)",
-              issuer: "Anthropic",
-              date: "Issued Jun 2026",
-              id: "vgh5txmx3dbi",
-              link: "https://verify.skilljar.com/c/vgh5txmx3dbi",
-              color: "pink",
-            },
-            {
-              title:
-                "Building GenAI Solutions with Best Practices & Design Choices - Technical (Level 300)",
-              issuer: "Amazon Web Services (AWS)",
-              date: "Issued Mar 2024",
-              color: "blue",
-            },
-            {
-              title: "Foundation of Generative AI",
-              issuer: "Udacity Nanodegree",
-              date: "Program Completion",
-              link: "https://www.udacity.com/certificate/e/df88db1a-b7bc-11ef-8b2e-8386e32aaca7",
-              color: "yellow",
-            },
-            {
-              title: "Scalable Machine Learning on Big Data using Apache Spark",
-              issuer: "IBM",
-              date: "Issued Dec 2023",
-              id: "TERQUHZM6RVL",
-              link: "https://www.coursera.org/account/accomplishments/verify/TERQUHZM6RVL",
-              color: "green",
-            },
-            {
-              title: "Databases and SQL for Data Science with Python",
-              issuer: "IBM",
-              date: "Issued Jul 2023",
-              id: "JESRQ532L4MR",
-              link: "https://www.coursera.org/account/accomplishments/certificate/JESRQ532L4MR",
-              color: "pink",
-            },
-            {
-              title: "Amazon ML Summer School (Top 200 India)",
-              issuer: "Amazon India",
-              date: "Issued Jul 2022",
-              color: "blue",
-            },
-            {
-              title: "Bertelsmann Next Generation Tech Booster Scholarship",
-              issuer: "Bertelsmann",
-              date: "Credential 2024 - 2025",
-              color: "yellow",
-            },
-            {
-              title: "Foundations of Prompt Engineering",
-              issuer: "Google",
-              date: "Issued Dec 2023",
-              color: "green",
-            },
-            {
-              title: "Crash Course on Python",
-              issuer: "Google Inc",
-              date: "Issued Dec 2021",
-              color: "pink",
-            },
-          ].map((cert, index) => {
-            const shadowColor =
-              cert.color === "pink"
-                ? "shadow-[3px_3px_0px_0px_#ff5c8d]"
-                : cert.color === "blue"
-                  ? "shadow-[3px_3px_0px_0px_#80dbff]"
-                  : cert.color === "yellow"
-                    ? "shadow-[3px_3px_0px_0px_#fff95f]"
-                    : "shadow-[3px_3px_0px_0px_#00FF6A]";
-            const shadowHover =
-              cert.color === "pink"
-                ? "hover:shadow-[5px_5px_0px_0px_#ff5c8d]"
-                : cert.color === "blue"
-                  ? "hover:shadow-[5px_5px_0px_0px_#80dbff]"
-                  : cert.color === "yellow"
-                    ? "hover:shadow-[5px_5px_0px_0px_#fff95f]"
-                    : "hover:shadow-[5px_5px_0px_0px_#00FF6A]";
-            return (
-              <div
-                key={index}
-                className={`bg-white border-2 border-slate-900 p-5 rounded-lg flex flex-col justify-between transition-all hover:translate-y-[-2px] ${shadowColor} ${shadowHover}`}
-              >
-                <div>
-                  <div className="flex justify-between items-start gap-2 mb-3">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 border-2 border-slate-900 rounded font-mono">
-                      {cert.issuer}
-                    </span>
-                    <span className="text-[9px] font-mono font-black text-slate-500 shrink-0">
-                      {cert.date}
-                    </span>
-                  </div>
-                  <h3 className="font-extrabold text-sm text-slate-900 leading-snug line-clamp-2 uppercase">
-                    {cert.title}
-                  </h3>
-                  {cert.id && (
-                    <p className="text-[10px] font-mono text-slate-500 mt-2 font-bold bg-slate-50 p-1 px-1.5 border border-slate-200 rounded w-fit">
-                      ID: {cert.id}
-                    </p>
-                  )}
-                </div>
+        {/* Seamless Scrolling Marquee Container (Scrolling in opposite direction!) */}
+        <div className="w-full relative py-6 overflow-hidden">
+          {/* Edge Fades */}
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-                {cert.link && (
-                  <div className="mt-4 pt-3 border-t border-slate-100">
-                    <a
-                      href={cert.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-black text-brainlabs-pink hover:text-slate-900 transition-colors hover:underline"
-                    >
-                      Verify Credential <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
+          <div className="animate-marquee-right pause-on-hover flex gap-6">
+            {[
+              {
+                title: "Introduction to Model Context Protocol (MCP)",
+                issuer: "Anthropic",
+                date: "Issued Jun 2026",
+                id: "vgh5txmx3dbi",
+                link: "https://verify.skilljar.com/c/vgh5txmx3dbi",
+                color: "pink",
+              },
+              {
+                title:
+                  "Building GenAI Solutions with Best Practices & Design Choices - Technical (Level 300)",
+                issuer: "Amazon Web Services (AWS)",
+                date: "Issued Mar 2024",
+                color: "blue",
+              },
+              {
+                title: "Foundation of Generative AI",
+                issuer: "Udacity Nanodegree",
+                date: "Program Completion",
+                link: "https://www.udacity.com/certificate/e/df88db1a-b7bc-11ef-8b2e-8386e32aaca7",
+                color: "yellow",
+              },
+              {
+                title:
+                  "Scalable Machine Learning on Big Data using Apache Spark",
+                issuer: "IBM",
+                date: "Issued Dec 2023",
+                id: "TERQUHZM6RVL",
+                link: "https://www.coursera.org/account/accomplishments/verify/TERQUHZM6RVL",
+                color: "green",
+              },
+              {
+                title: "Databases and SQL for Data Science with Python",
+                issuer: "IBM",
+                date: "Issued Jul 2023",
+                id: "JESRQ532L4MR",
+                link: "https://www.coursera.org/account/accomplishments/certificate/JESRQ532L4MR",
+                color: "pink",
+              },
+              {
+                title: "Amazon ML Summer School (Top 200 India)",
+                issuer: "Amazon India",
+                date: "Issued Jul 2022",
+                color: "blue",
+              },
+              {
+                title: "Bertelsmann Next Generation Tech Booster Scholarship",
+                issuer: "Bertelsmann",
+                date: "Credential 2024 - 2025",
+                color: "yellow",
+              },
+              {
+                title: "Foundations of Prompt Engineering",
+                issuer: "Google",
+                date: "Issued Dec 2023",
+                color: "green",
+              },
+              {
+                title: "Crash Course on Python",
+                issuer: "Google Inc",
+                date: "Issued Dec 2021",
+                color: "pink",
+              },
+            ]
+              .reduce((arr, val) => [...arr, val, val], [])
+              .map((cert, index) => {
+                const shadowColor =
+                  cert.color === "pink"
+                    ? "shadow-[3px_3px_0px_0px_#ff5c8d]"
+                    : cert.color === "blue"
+                      ? "shadow-[3px_3px_0px_0px_#80dbff]"
+                      : cert.color === "yellow"
+                        ? "shadow-[3px_3px_0px_0px_#fff95f]"
+                        : "shadow-[3px_3px_0px_0px_#00FF6A]";
+                const shadowHover =
+                  cert.color === "pink"
+                    ? "hover:shadow-[5px_5px_0px_0px_#ff5c8d]"
+                    : cert.color === "blue"
+                      ? "hover:shadow-[5px_5px_0px_0px_#80dbff]"
+                      : cert.color === "yellow"
+                        ? "hover:shadow-[5px_5px_0px_0px_#fff95f]"
+                        : "hover:shadow-[5px_5px_0px_0px_#00FF6A]";
+                return (
+                  <div
+                    key={index}
+                    className={`w-[290px] bg-white border-2 border-slate-900 p-5 rounded-lg flex flex-col justify-between transition-all hover:translate-y-[-2px] shrink-0 boxy-hover ${shadowColor} ${shadowHover}`}
+                  >
+                    <div>
+                      <div className="flex justify-between items-start gap-2 mb-3">
+                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 border-2 border-slate-900 rounded font-mono">
+                          {cert.issuer}
+                        </span>
+                        <span className="text-[9px] font-mono font-black text-slate-500 shrink-0">
+                          {cert.date}
+                        </span>
+                      </div>
+                      <h3 className="font-extrabold text-xs text-slate-900 leading-snug line-clamp-2 uppercase">
+                        {cert.title}
+                      </h3>
+                      {cert.id && (
+                        <p className="text-[10px] font-mono text-slate-500 mt-2 font-bold bg-slate-50 p-1 px-1.5 border border-slate-200 rounded w-fit">
+                          ID: {cert.id}
+                        </p>
+                      )}
+                    </div>
+
+                    {cert.link && (
+                      <div className="mt-4 pt-3 border-t border-slate-100">
+                        <a
+                          href={cert.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-black text-brainlabs-pink hover:text-slate-900 transition-colors hover:underline"
+                        >
+                          Verify Credential{" "}
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
+          </div>
         </div>
       </section>
 
@@ -1457,7 +1450,7 @@ export default function App() {
               GitHub
             </a>
             <a
-              href="https://linkedin.com/in/aryaroop-majumder-a779691bb"
+              href="https://www.linkedin.com/in/aryaroop-majumder/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-brainlabs-pink transition-colors"
