@@ -1,5 +1,7 @@
 # 🔬 Scientific Machine Learning & Data Science Portfolio
 
+### 🚀 Live Website: [https://finix-gamma.github.io/portfolio/](https://finix-gamma.github.io/portfolio/)
+
 A premium, high-contrast, lightweight personal portfolio web application developed with **React**, **Vite**, **Tailwind CSS**, and **Framer Motion**. Adheres to a pristine **Neo-Brutalist Light** design language with solid boxy structures, vibrant color shadows, and smooth spring animations.
 
 This portfolio is configured for **fully automated, warning-free CI/CD deployment on GitHub Pages** using GitHub Actions and Node 24.
