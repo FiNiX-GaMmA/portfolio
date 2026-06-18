@@ -378,11 +378,11 @@ export default function App() {
       const parts = currentLine.split(/\*\*([^*]+)\*\*/g);
       const parsedLine = parts.map((part, partIdx) => {
         if (partIdx % 2 === 1) {
-          // Odd elements are wrapped in bold tags
+          // Odd elements are wrapped in bold tags with a high-contrast yellow highlighter background
           return (
             <strong
               key={partIdx}
-              className="font-extrabold text-slate-950 underline decoration-brainlabs-yellow decoration-2"
+              className="font-extrabold text-slate-950 bg-brainlabs-yellow/45 px-1 py-0.5 rounded-sm mx-0.5 border-b border-brainlabs-yellow/60"
             >
               {part}
             </strong>
@@ -627,8 +627,8 @@ export default function App() {
               href="#chatbot"
               className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2"
             >
-              <MessageSquare className="w-5 h-5 text-brainlabs-yellow" />{" "}
-              Consult Cortex-Arya AI
+              <MessageSquare className="w-5 h-5 text-[#ff5c8d]" /> Consult
+              Cortex-Arya AI
             </a>
           </div>
 
@@ -671,7 +671,7 @@ export default function App() {
 
             {/* Title / Header */}
             <div className="border-b-3 border-slate-900 pb-4 mb-4">
-              <h3 className="font-mono font-black text-xs text-brainlabs-yellow uppercase tracking-widest">
+              <h3 className="font-mono font-black text-xs text-[#ff5c8d] uppercase tracking-widest">
                 Active System Profile
               </h3>
               <p className="font-black text-2xl tracking-tight text-slate-900">
@@ -705,8 +705,7 @@ export default function App() {
                 </span>
                 <div className="flex flex-col gap-1.5 items-end">
                   <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-pink-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
-                    <Award className="w-4 h-4 text-brainlabs-yellow" />{" "}
-                    Anthropic MCP
+                    <Award className="w-4 h-4 text-[#ff5c8d]" /> Anthropic MCP
                   </span>
                   <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-yellow-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
                     <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />{" "}
