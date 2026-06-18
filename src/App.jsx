@@ -44,15 +44,27 @@ export default function App() {
     },
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [currentPrompt, setCurrentPrompt] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
   const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const isInitialMount = useRef(true);
 
-  // Auto-scroll chat
+  // Auto-scroll chat body container only, keeping parent browser page steady
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages, isTyping]);
 
   // Projects list compiled from all your resumes over the years
@@ -303,7 +315,7 @@ export default function App() {
   ];
 
   const handlePromptClick = (prompt) => {
-    if (isTyping) return;
+    if (isTyping || isStreaming) return;
 
     setCurrentPrompt(prompt.id);
 
@@ -312,13 +324,40 @@ export default function App() {
     setMessages(updatedMessages);
     setIsTyping(true);
 
-    // Simulate RAG chatbot database query response
+    // Simulate RAG chatbot database query response with streaming
     setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: prompt.reply },
-      ]);
       setIsTyping(false);
+      setIsStreaming(true);
+
+      // Add empty assistant message to stream into
+      const streamMessageIdx = updatedMessages.length;
+      const finalMessages = [
+        ...updatedMessages,
+        { role: "assistant", content: "" },
+      ];
+      setMessages(finalMessages);
+
+      const words = prompt.reply.split(" ");
+      let currentWordIdx = 0;
+      let streamedText = "";
+
+      const interval = setInterval(() => {
+        if (currentWordIdx < words.length) {
+          streamedText +=
+            (currentWordIdx === 0 ? "" : " ") + words[currentWordIdx];
+          setMessages((prev) => {
+            const clone = [...prev];
+            if (clone[streamMessageIdx]) {
+              clone[streamMessageIdx].content = streamedText;
+            }
+            return clone;
+          });
+          currentWordIdx++;
+        } else {
+          clearInterval(interval);
+          setIsStreaming(false);
+        }
+      }, 35); // 35ms per word is extremely smooth & natural
     }, 1000);
   };
 
@@ -696,7 +735,10 @@ export default function App() {
             </div>
 
             {/* Chat Body */}
-            <div className="h-96 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50 font-mono text-xs sm:text-sm border-b-3 border-slate-900">
+            <div
+              ref={chatContainerRef}
+              className="h-96 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50 font-mono text-xs sm:text-sm border-b-3 border-slate-900"
+            >
               <AnimatePresence>
                 {messages.map((m, idx) => (
                   <motion.div
@@ -753,10 +795,10 @@ export default function App() {
                 {chatPrompts.map((p, i) => (
                   <button
                     key={i}
-                    disabled={isTyping}
+                    disabled={isTyping || isStreaming}
                     onClick={() => handlePromptClick(p)}
                     className={`bg-slate-50 text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-pink hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ff5c8d] rounded-lg font-black ${
-                      isTyping
+                      isTyping || isStreaming
                         ? "opacity-50 cursor-not-allowed"
                         : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
                     }`}
