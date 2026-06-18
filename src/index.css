@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brainlabs-cream text-brainlabs-dark font-sans;
+  }
+}
+
+::selection {
+  background-color: #ff5c8d;
+  color: #ffffff;
+}
+
+/* Custom Scrollbar to maintain the boxy look */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fffceb;
+  border-left: 3px solid #1b1b1b;
+  border-top: 3px solid #1b1b1b;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1b1b1b;
+  border: 2px solid #fffceb;
+}
+
+::-webkit-scrollbar-corner {
+  background: #fffceb;
+}
+
+/* Custom boxy utilities */
+.boxy-border {
+  border: 3px solid #1b1b1b;
+}
+
+.boxy-shadow-pink {
+  box-shadow: 4px 4px 0px 0px #ff5c8d;
+}
+
+.boxy-shadow-blue {
+  box-shadow: 4px 4px 0px 0px #80dbff;
+}
+
+.boxy-shadow-black {
+  box-shadow: 4px 4px 0px 0px #1b1b1b;
+}
+
+.boxy-shadow-double {
+  box-shadow: 4px 4px 0px 0px #1b1b1b, 8px 8px 0px 0px #ff5c8d;
+}
+
+/* Hover transitions */
+.boxy-hover {
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.boxy-hover:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px 0px #1b1b1b;
+}
+
+.boxy-hover-pink:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px 0px #ff5c8d;
+}
+
+.boxy-hover-blue:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px 0px #80dbff;
+}

@@ -1,0 +1,1450 @@
+{
+  "check_ins": [
+    {
+      "aspect": "Wellbeing",
+      "history": [
+        {
+          "date": "2025-09-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-10-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-11-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-12-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-01-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-02-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-03-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-04-01T00:00:00",
+          "scale": "Good",
+          "notes": null
+        },
+        {
+          "date": "2026-05-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "aspect": "Workload",
+      "history": [
+        {
+          "date": "2025-09-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-10-01T00:00:00",
+          "scale": "Good",
+          "notes": null
+        },
+        {
+          "date": "2025-11-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-12-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-01-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-02-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-03-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-04-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-05-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "aspect": "Work Relationships",
+      "history": [
+        {
+          "date": "2025-09-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-10-01T00:00:00",
+          "scale": "Good",
+          "notes": null
+        },
+        {
+          "date": "2025-11-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-12-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-01-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-02-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-03-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-04-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-05-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "aspect": "Learning & Growth ",
+      "history": [
+        {
+          "date": "2025-09-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-10-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-11-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2025-12-01T00:00:00",
+          "scale": "Good",
+          "notes": null
+        },
+        {
+          "date": "2026-01-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-02-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-03-01T00:00:00",
+          "scale": "Great",
+          "notes": null
+        },
+        {
+          "date": "2026-04-01T00:00:00",
+          "scale": "Ok",
+          "notes": null
+        },
+        {
+          "date": "2026-05-01T00:00:00",
+          "scale": "Ok",
+          "notes": null
+        },
+        {
+          "date": "2026-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "aspect": "Notes from your monthly",
+      "history": [
+        {
+          "date": "2025-09-01T00:00:00",
+          "scale": "Productivity: Great",
+          "notes": null
+        },
+        {
+          "date": "2025-10-01T00:00:00",
+          "scale": "Productivity: Great\n\nHighlights: That my manager understood the needs and my goals in my career path\n\nChallenges: None as of now\n\nAnything else: If i can be more exposed to GenAI based applications and tool developements",
+          "notes": null
+        },
+        {
+          "date": "2025-11-01T00:00:00",
+          "scale": "Productivity: Great\n\nAnything else: My performance and its scope of improvement.",
+          "notes": null
+        },
+        {
+          "date": "2025-12-01T00:00:00",
+          "scale": "Productivity: Great",
+          "notes": null
+        },
+        {
+          "date": "2026-01-01T00:00:00",
+          "scale": "Highlights: Demoed on Agentic Development using Airflow",
+          "notes": null
+        },
+        {
+          "date": "2026-02-01T00:00:00",
+          "scale": "Highlights: \nGCP ACE Certification, \nLed a team in BrainJAM",
+          "notes": null
+        },
+        {
+          "date": "2026-03-01T00:00:00",
+          "scale": "Highlights: \nSEO-v2 fullstack development.\nDeveloped Agneic Worflow to Demo to the DSC Team",
+          "notes": null
+        },
+        {
+          "date": "2026-04-01T00:00:00",
+          "scale": "Worked on the POC with Data Engenerring team\nRAG Chatbot application",
+          "notes": null
+        },
+        {
+          "date": "2026-05-01T00:00:00",
+          "scale": "Pitches to Stakeholders for the new version of SearchIQ\nPresented to Andy and Badri the SearchIQ\nComplted the 1st revision of SearchIQ well-before the deadline set by the stakeholders",
+          "notes": null
+        },
+        {
+          "date": "2026-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2026-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2027-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-03-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-04-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-05-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-06-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-07-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-08-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-09-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-10-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-11-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2028-12-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-01-01T00:00:00",
+          "scale": null,
+          "notes": null
+        },
+        {
+          "date": "2029-02-01T00:00:00",
+          "scale": null,
+          "notes": null
+        }
+      ]
+    }
+  ],
+  "deliverables": [
+    {
+      "deliverable": "Maintain optimal utilization",
+      "description": "Sustain optimal utilization while ensuring that there is continuous learning of new skills and development",
+      "self_rating": "Delivering it",
+      "self_comments": "Taking up tasks that require me to continuoulsly learn and devlop my skils.",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "Aryaroop consistently acquired and expertly utilized new skills. In embeding analyzer tool, for topical classification he has got skills related to visual clustering of topics",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Operational Excellence",
+      "description": "100% timely updates in timesheets, trackers, and PM tools to enhance visibility and accountability",
+      "self_rating": "Delivering it",
+      "self_comments": "Updating the timesheets in Clockify",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "He updated clockify without any reminder for this month",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Deliver client value-adds",
+      "description": "Provide at least 2 tangible value additions per year (automation, optimization, recommendations) that directly improve client outcomes.",
+      "self_rating": "Delivering it",
+      "self_comments": "1. In Halcyon the SEO-Tool suite\n2. Lego GenAI use case\n3. LLM based Classification tool\n4. Seo-suite tools\n5. Emedding Analyser Tool\n6. Rag-Based Chatbot\n7. Cross Linkage matching dataset tool\n8. SERP feature analyser\n9. Screaming frog OSS alternative TTL\n10. Keyword Search volume analyser\n11. CI/CD pipeline for SearchIQ\n12. SearchIQ revision 1.0 completed",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "SEO-Tool Suite and Lego projects are tangible value additions, please keep up the good work and continue to implement the improvements suggested by stakeholders",
+      "unblockers": null
+    },
+    {
+      "deliverable": "On-time and High-quality delivery",
+      "description": "Ensure 100% on-time and high-quality delivery with no delays/errors",
+      "self_rating": "Delivering it",
+      "self_comments": "Smart working by breaking big tasks into smaller ones to complete on time.",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "The commitment to 100% on-time and flawless delivery is excellent. Maintain this standard. You have demonstrated this both in Lego and Halcyon projects",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Maintain & exceed stakeholder satisfaction",
+      "description": "Maintain & exceed stakeholder satisfaction across all projects through consistent value delivery and proactive communication.",
+      "self_rating": "Delivering it",
+      "self_comments": "Recieving feedbacks from those stakeholders",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "The LEGO project's high level of stakeholder satisfaction is a testament to its success.",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Prevent escalations",
+      "description": "Ensure zero major escalations (no client attrition) related to quality, timelines, or communication gaps.",
+      "self_rating": "Delivering it",
+      "self_comments": "Smart working by breaking big tasks into smaller ones to complete on time.",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "We did not receive any escalation till now.",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Learning & Development",
+      "description": "Complete 100% of assigned learnings, demonstrating growth in core and advanced skills.",
+      "self_rating": "Delivering it",
+      "self_comments": "There is always more to learn.\nGCP Certification - ACE",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "While your technical development is strong, focus on adapting your communication style for broader audiences, particularly non-technical stakeholders and leadership. Your current communication with technical stakeholders is excellent.",
+      "unblockers": "Provided learning path on Edcast"
+    },
+    {
+      "deliverable": "Embed feedback culture",
+      "description": "Request and act on at least 20 pieces of feedback annually to drive self- and team-improvement.",
+      "self_rating": "Delivering it",
+      "self_comments": "Completed",
+      "blockers": null,
+      "manager_rating": "Delivering it",
+      "manager_notes": "Completed receiving and giving feedbacks",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Track and own goal progress",
+      "description": "Update and review goal progress every month, ensuring continuous alignment and accountability.",
+      "self_rating": "Delivering it",
+      "self_comments": "the monthly 1-1s",
+      "blockers": null,
+      "manager_rating": "Good progress",
+      "manager_notes": "Needed reminder to complete the development profile",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Support team collaboration",
+      "description": "Participate actively in cross-team discussions, knowledge sharing sessions, and collaborative problem-solving.",
+      "self_rating": "Delivering it",
+      "self_comments": "Will be delivering the Lego GenAI use case in 6th Nov\nDeveloped Agneic Worflow to Demo to the DSC Team\nHelped Anusha with the PyMC Agentic MMM demo with agentic AI",
+      "blockers": null,
+      "manager_rating": "Good progress",
+      "manager_notes": "He presented Lego Usecase to the team, which was helpful. Gave Agentic workflow demo to DSC team",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Raise the bar (1)",
+      "description": "Create an executive-ready SEO-tool overview that articulates the product\u2019s capabilities, business benefit, differentiation, and strategic relevance.",
+      "self_rating": "Delivering it",
+      "self_comments": "Started creating the Document that can be shared with Shusruth so that this can be showcased to others. Created the pitch deck for Google. \n\nCompleted working on the executive deck, and sne to the higher ups\n\nThe application platform built for the SEO-team was demoed to Shusruth and Bhavani for prospective clients and projects.\n\nCreated Pitchdeck for Timex with the helpof Mudit\n\nPresented SearchIQ to Andy and Badri",
+      "blockers": null,
+      "manager_rating": "Good progress",
+      "manager_notes": "He made product pitch deck for submission to Google. This has to be elobarated as executive ready, by adding business benefit and technical details of each component of SEO tool suite",
+      "unblockers": null
+    },
+    {
+      "deliverable": "Raise the bar (2)",
+      "description": "Build a POC/demo related to demand forecasting and add an AI agent on top of it for conversing in Natural language",
+      "self_rating": "Good progress",
+      "self_comments": "Started with the process flow and architecture.",
+      "blockers": null,
+      "manager_rating": "Good progress",
+      "manager_notes": "Its still in the initial stages",
+      "unblockers": null
+    }
+  ],
+  "performance_summary": {
+    "job_title": "Specialist, Data Science (2a)",
+    "time_in_role": "1 year 3 months",
+    "promotion_eligibility": "Now (Step-up)"
+  },
+  "feedback_received": [
+    {
+      "date": "2026-05-14T13:51:42",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Thank you, Mudit, Arya, Shashi, and Anusha, for quickly pulling together the one-pager deck for the latest MMM and SearchIQ pitch.\nReally appreciate the speed, coordination, and effort from everyone to get this ready in a short time.\n\nSpecial thanks as well for keeping the content crisp and business-focused while still covering the key value proposition clearly.\nValues: We Win with Our Clients",
+      "discussed": false,
+      "notes": null
+    },
+    {
+      "date": "2026-05-08T14:57:00",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Big shoutout to @Arya and @shashi.gowda for successfully delivering the demo of our new AI SEO tool, SearchIQ to @andy.littlewood. Great confidence, smooth walkthrough, and solid effort throughout the process.\n\nAlso, huge appreciation to the entire team behind this effort, especially @Anusha Kasinikota and @samruddhi.talekar, for the support, coordination, and teamwork that made this possible.\n\nGood to see the team pushing forward and turning ideas into working products. :rocket:\nValues: Freedom in Frameworks, We are One Team, Big Brain Thinking, Big-Lever Bias",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2026-03-26T15:36:00",
+      "from": "anusha.kasinikota@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Huge shoutout to @Arya for:\n1.  Achieving the GCP ACE certification\n2.  Developing RAG based chatbot for SEO tool suite, and documenting this journey on Medium, showing a relentless drive to learn through doing.\n3. You\u2019ve demonstrated incredible technical depth by building the new SEO tool suite end-to-end on GCP and integrating AI to significantly elevate the efficiency of our internal products.\n4. By leading sessions on Docker and AI, you\u2019ve gone above and beyond to coach and mentor your teammates with your growing expertise.\n5. Your consistent \"AI updates\" in scrum calls bring a positive energy and a curious mindset that continues to set a higher standard for everyone around you.\nValues: Big Brain Thinking, Execution Education, We are One Team, Freedom in Frameworks, Raise the Bar",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2026-02-16T11:39:00",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Huge thanks to the entire Data Science team for actively participating in the Nsemble event :clap:\n\nSpecial shoutout to:\n@Deepak Arun, @japneet.kaur, @Janhavi, @Anusha Kasinikota, @Arya, @Yash Watwani, and @Shashi.Gowda.\n\nBig congratulations to:\n:trophy: @subbaramireddy B B \u2013 Trailblazer in Innovation Award\n\n:trophy: @Anusha Kasinikota \u2013 Culture & Team Empowerment Award\n\n:trophy: @Mudit Kanodia \u2013 Star Performer Award\n\n:trophy: @Janhavi \u2013 Culture Code Award \u2013 \u201cFeedback is a Gift\u201d\n\nProud of the team and the impact you all continue to create :raised_hands:\nValues: We are One Team, Feedback is a Gift, Big Brain Thinking, Raise the Bar, Execution Education",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2026-02-16T06:45:00",
+      "from": "divya.prakash@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Massive shoutout to the entire Nsemble Singers Troupe! :notes::sparkles:\nThank you for your incredible support, participation, and seamless collaboration throughout this journey. From practice sessions to the final performance, your energy and commitment truly made the difference \u2014 and together, we absolutely rocked the show!\nA special thank you for adapting so positively to the constant song changes and last-minute tweaks. Your flexibility and team spirit are what elevated this performance to the next level.\nIt was recognized. It was appreciated. And most importantly \u2014 it felt different, fresh, and truly engaging.\nProud of this team. Let\u2019s keep raising the bar! :rocket::microphone:\nValues: We are One Team, Raise the Bar",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-12-09T13:33:00",
+      "from": "anusha.kasinikota@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Huge Shoutout to @Arya for implementing the client-agnostic topical classification system, for accurately categorizing diverse search phrases regardless of the client source in Halcyon. The way you rapidly tested multiple solutions was impressive, and that speed was key to our success. Your focused effort delivered a strong, working solution quickly\nValues: Execution Education, Raise the Bar",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-12-09T06:15:00",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Recently we had a call with the stakeholder and we received good feedback.  Kudos to @Arya and @Shashi.Gowda for the great work on Halcyon project. Both of you have picked things up fast and are showing sharp thinking every day.\n\nAlso a big thanks to @Anusha Kasinikota for driving the engagement smoothly.\n\nGood job team. Keep going strong.\nValues: We Win with Our Clients, Big Brain Thinking, Execution Education",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-12-05T11:38:00",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Kudos to everyone for the great team effort today.\nAs part of our Fun Friday team-building activity, we came together and pushed hard on the fun \"AI ad creative tool\".\nLoved the spirit and how everyone jumped in and worked as one team. :raised_hands:\n\ncc : @Badri\nValues: We are One Team, Radiators Not Drains, Big Brain Thinking, Radical Clarity, First Principles, Stack the Odds",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-11-21T10:28:00",
+      "from": "sushrut.tendulkar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Thanks everyone for actively taking part in team week and making it a truly nice one for all of us.\nValues: We are One Team, Radiators Not Drains, Execution Education",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-11-21T10:01:00",
+      "from": "santosh.kumar@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Thank you all of you for being actively participated and boosted up energy levels through out the time, and encouraging within ourselves.\nValues: We are One Team",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-11-21T10:00:00",
+      "from": "anusha.kasinikota@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Thank you for patiently taking me through the details of SEO clarity tool. Your ability to manage tasks and complete work significantly boosts overall team efficiency.\nValues: Execution Education, We are One Team",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-11-07T10:33:00",
+      "from": "yash.watwani@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Thank you, Arya, for the comprehensive walkthrough of the LEGO use case and for articulating the concepts so clearly.\nValues: Execution Education",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-10-21T13:57:00",
+      "from": "tushar.parekh@brainlabsdigital.com",
+      "source": "Private Feedback",
+      "text": "Arya brings infectious energy and an excellent, scalable perspective to every challenge. He excels at developing automated, long-term solutions for complex problems. He adapted quickly to the ELC project\u2014his first with Brainlabs\u2014and made a strong, immediate impact. A valuable engineer and an outstanding teammate.",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-10-17T13:28:00",
+      "from": "michele.lopiccolo@brainlabsdigital.com",
+      "source": "Private Feedback",
+      "text": "I'm really happy with Aryaroop's work and proactivity, I was really concerned after Anubhav and Adytia left but I have to say that the disruption was minimum in non-existent, plus as mentioned I really like the proactivity in proposing new solutions. I have to say that we didin't work on challenging things yet, but so far I'm pretty satisfied with his work!",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-10-17T08:06:00",
+      "from": "gaurav.makol@brainlabsdigital.com",
+      "source": "Private Feedback",
+      "text": "Have worked for a brief time with Arya for data fitment requirement for Beall's MMM. Arya has been diligent in performing the analysis and made sure we got to the results in a timely fashion.",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-10-10T09:18:00",
+      "from": "alex.buckingham@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Arya created an amazing AI tool for LEGO that reads images and onsite content as a hybrid scraper to assign tagging and assignment criteria to products. This tool will  save numerous man hours on the account removing the need to manually assign image categorisations. The outputs were advanced and Arya really took the time to understand the team's requirements and the Clients ask. He kept me informed and inputted workarounds and insights to make the output far superior to what I initially envisaged, big thanks!\nValues: We Win with Our Clients, Freedom in Frameworks",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-10-09T07:37:00",
+      "from": "alex.buckingham@brainlabsdigital.com",
+      "source": "Private Feedback",
+      "text": "Aryaroop was instrumental in helping with a complex task for LEGO. He worked diligently and efficiently to understand the requirements, parameters and clients needs for the request keeping me in formed every step of the way. The final output was an excellent one that will result in a net saving of many man hours and clear benefit to the client. We will hold the showcase session this week wherein I will provide more feedback but this solution was expertly delivered and efficiently progressed, many thanks again Arya!",
+      "discussed": null,
+      "notes": null
+    },
+    {
+      "date": "2025-09-19T11:44:00",
+      "from": "aditya.manitripathi@brainlabsdigital.com",
+      "source": "Public Shoutout",
+      "text": "Big shoutout to @shashi.gowda and @Arya! You both stepped up when it mattered most and tackled those urgent tasks like pros. I really appreciate your dedication and the amazing work you've done on the project. You guys are rockstars!!\nValues: We are One Team, Raise the Bar",
+      "discussed": false,
+      "notes": null
+    },
+    {
+      "date": "2025-07-16T00:00:00",
+      "from": "Anubhav Srivastav",
+      "source": "Culture Amp",
+      "text": "[cite_start]It's been great working with you on the ELC project! [cite_start]Your contributions have been consistently valuable-your code is well-structured, your support in resolving issues is much appreciated, and your communication is always clear and constructive. [cite_start]Your approach to problem-solving has positively impacted the team's progress. [cite_start]Thank you for your continued support and collaboration.",
+      "discussed": false,
+      "notes": null
+    },
+    {
+      "date": "2025-07-14T00:00:00",
+      "from": "Shashidhar G J",
+      "source": "Culture Amp",
+      "text": "[cite_start]You're doing great work your contribution in developing the project has been really valuable and shows strong technical capability. [cite_start]You've also shown great ownership and a willingness to take initiative, which is appreciated. [cite_start]That said, there's still some room for improvement in managing errors more proactively, thinking through the project end-to-end, and refining time management. [cite_start]Focusing on these areas will help you become an even more well-rounded and effective engineer/data scientist.",
+      "discussed": false,
+      "notes": null
+    },
+    {
+      "date": "2025-07-14T00:00:00",
+      "from": "Aditya Tripathi",
+      "source": "Culture Amp",
+      "text": "[cite_start]Hi Arya, It's been great working with you so far, and I'm looking forward to more collaboration ahead! [cite_start]You bring strong problem-solving abilities, excellent coding skills, and a thoughtful, approachable attitude to the team. [cite_start]Your decision-making have had a positive impact, and it's always easy to work with you.",
+      "discussed": false,
+      "notes": null
+    }
+  ],
+  "culture_ratings": [
+    {
+      "value": "We Are One Team",
+      "description": "You are a superb teammate and you go above and beyond to coach and mentor other Brainlabbers.",
+      "rating": 4.0,
+      "summary": "You are clearly a superb and highly valued teammate. You consistently receive praise for your collaboration, with multiple people like Sushrut and Divya highlighting your teamwork and positive participation. Anusha specifically called out how you go above and beyond to coach and mentor teammates, which is a fantastic contribution. Continue being that supportive, collaborative force within the team."
+    },
+    {
+      "value": "Feedback is a Gift",
+      "description": "You continuously receive and share actionable feedback to develop yourself and others.",
+      "rating": 3.0,
+      "summary": "You are actively participating in our feedback culture, both in giving and receiving it. It's great to see you providing constructive thoughts to others, for example your suggestion to Shashi on time management. The next step is to proactively demonstrate how you're acting on the growth opportunities identified for you, such as your manager's point about adapting your communication for non-technical audiences."
+    },
+    {
+      "value": "Radiators Not Drains",
+      "description": "You always show up with a positive attitude and others feel the impact of the good energy you radiate.",
+      "rating": 3.5,
+      "summary": "You bring a great deal of positive energy to your work. Tushar described your energy as \"infectious,\" and Anusha noted that your consistent 'AI updates' in scrum calls bring a positive and curious mindset to the group. People clearly feel the good energy you radiate, so keep bringing that enthusiasm to your projects and team interactions."
+    },
+    {
+      "value": "We Win with Our Clients",
+      "description": "You always approach your work with a customer-first mindset \u2013 whether that be externally for clients or internally for Brainlabbers.",
+      "rating": 4.0,
+      "summary": "You consistently demonstrate a strong customer-first mindset. The feedback from Alex Buckingham on the LEGO project was exceptional \u2013 he highlighted how you took the time to deeply understand client needs to deliver a solution with clear, significant benefits. This is reinforced by positive stakeholder feedback on Halcyon and your business-focused contributions to pitches. You're doing a great job of focusing on what drives value."
+    },
+    {
+      "value": "Big Brain Thinking",
+      "description": "You combine brainpower and AI in order to truly elevate your thinking and make your work significantly more efficient.",
+      "rating": 4.5,
+      "summary": "This is a huge strength for you. Your work is defined by combining brainpower and AI to elevate our capabilities. You are repeatedly recognized for creating advanced AI tools like SearchIQ and the LEGO image scraper, with Anusha noting how you integrate AI to significantly boost efficiency. Alex Buckingham even said your insights made the output 'far superior' to what he initially imagined. Keep pushing the boundaries with your innovative thinking."
+    },
+    {
+      "value": "Radical Clarity",
+      "description": "You are honest, direct and kind in your communication.",
+      "rating": 3.0,
+      "summary": "You're skilled at communicating clearly, especially with your technical colleagues. Yash praised how clearly you articulated concepts in a walkthrough, and Anubhav noted your communication is always clear and constructive. A great opportunity for you, as your manager pointed out, is to now focus on adapting your style for non-technical stakeholders to ensure your brilliant ideas land with impact across any audience."
+    },
+    {
+      "value": "Big-Lever Bias",
+      "description": "You work smarter by choosing the most efficient approach to achieve maximum results.",
+      "rating": 3.5,
+      "summary": "You have a great instinct for working on high-impact solutions. The AI tool you built for LEGO, which Alex Buckingham noted will save 'numerous man hours', is a perfect example of focusing on a big lever. Continue to seek out these opportunities that deliver maximum results, and focus on the time management skills mentioned by Shashidhar to further boost your efficiency in delivering them."
+    },
+    {
+      "value": "First Principles",
+      "description": "You solve problems by finding and fixing root causes, not symptoms",
+      "rating": 3.0,
+      "summary": "You show strong potential in this area by looking for foundational solutions. Tushar praised your ability to develop automated, long-term fixes for complex problems. A good example is the client-agnostic system Anusha mentioned. To grow here, focus on the feedback from Shashidhar about thinking through projects end-to-end to ensure you are always solving for the true root cause."
+    },
+    {
+      "value": "Freedom in Frameworks",
+      "description": "You create and automate processes that empower us to scale \u2014 never to constrain progress.",
+      "rating": 4.5,
+      "summary": "You are exceptional at creating and automating processes that empower the team to scale. There is consistent, high-impact evidence from Anusha, Tushar, and Alex about you building scalable, automated tools like the new SEO tool suite on GCP and the AI tool for LEGO. This is a core part of your contribution and a massive asset to the team."
+    },
+    {
+      "value": "Stack the Odds",
+      "description": "You confidently prioritize the work that will drive the greatest strategic impact \u2014 and deprioritize the rest.",
+      "rating": 2.5,
+      "summary": "You are very effective at responding to priorities, with Aditya noting how you stepped up to tackle urgent tasks when it mattered most. To develop this skill further, focus not just on executing urgent work, but on proactively identifying and prioritizing the work that will drive the greatest strategic impact \u2013 and confidently de-prioritizing the rest."
+    },
+    {
+      "value": "Execution Education",
+      "description": "You push yourself to learn through doing and then share your knowledge by teaching others.",
+      "rating": 4.5,
+      "summary": "You perfectly embody the 'learn by doing, share by teaching' mindset. The feedback from Anusha is a textbook example: you achieved a GCP certification, documented your journey on Medium, and then led sessions to teach your teammates. This is supported by multiple instances of you giving walkthroughs and demos to share your knowledge. This is a massive strength and a huge benefit to the team."
+    },
+    {
+      "value": "Raise the Bar",
+      "description": "You have exceptionally high standards for yourself and everyone around you, and you continue to raise the bar.",
+      "rating": 4.0,
+      "summary": "You consistently demonstrate exceptionally high standards. Alex Buckingham's comment that your output was 'far superior' to what he envisaged is a clear sign that you raise the bar. Anusha also noted that your work sets a higher standard for everyone around you. Your next step is to apply this high standard to all communication, ensuring even things like pitch decks are 'executive ready' from the start."
+    }
+  ]
+}

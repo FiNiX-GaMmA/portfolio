@@ -1,0 +1,128 @@
+ 
+ 
+ARYAROOP MAJUMDER 
+DATA SCIENTIST 
+ 
+ 
+ 
+ 
+PROFESSIONAL SUMMARY 
+ 
+Seeking for an opportunity to apply my 
+analytical and technical skills to solve real-
+world business problems. My objective is 
+to gain hands-on experience in the field of 
+data science while continuously learning 
+and improving my skills. I am looking for a 
+challenging role in a dynamic organization 
+where I can contribute my knowledge and 
+creativity to drive innovation and make a 
+meaningful impact. 
+ 
+ 
+TECHNICAL SKILLS 
+ 
+Programming languages : 
+Python, Bash  
+ Data Visualization  Tools: 
+Power BI, Tableau 
+Data Management  Tools: 
+MySQL 
+Operating Systems : 
+Linux (Debian Based), Window 10 
+ 
+ 
+ 
+CERTIFICATIONS 
+ 
+Crash Course on Python | 
+Google Inc | Dec '21 | Python 
+Energy Within Environmental 
+Constraints| Harvard University 
+| Aug '21 
+Data, Data Everywhere | Google Inc 
+| Jan’ 22 | Data-science domain 
+ 
+ 
+ 
+ 
+POWER SKILLS 
+Initiates conversation with 
+others.  
+Values imagination 
+Empathetic towards others.  
+Works independently in a 
+structured manner. 
+ 
+ 
+EXTRA CURRICULAR 
+ACTIVITIES 
+Headed the Graohics designing 
+team in LPUs highest tier group. 
+AI-ML Team member of GDSC -
+LPU. 
+PROJECTS 
+ 
+Image Classifier  Model Apr'23 
+Domain: Neural Network    | Programming Languages: Python       |             
+Constructed a neural network to classify images as cat or non-cat.       
+This neural network was created using Logistic Regression without using 
+any such famous python modules like sci-kit Learn or TensorFlow. 
+Used various mathematical techniques such as sigmoid function and learning rates. 
+ 
+Machine Learning model  on Heart Disease Prediction  Feb'23 
+Domain: Machine Learning | Programming Languages: Python   | 
+Built a machine learning model using sci-kit learn and TensorFlow to 
+predict the chance of a human being have heart disease  from their 
+blood test report. 
+Hyper-parameter tuning to make the model give more accurate prediction. 
+ 
+Exploratory Data Analysis  on Global Terrorism Dataset   Nov'22 
+Domain: Data Analysis | Programming Languages:  Python          | 
+Performed Data Analysis to understand the underlying reasons of why 
+a country is being attacked more compared to others 
+Performed data cleansing and data manipulation on the dataset. 
+Found some insights on the hot zones of terrorism . 
+ 
+Discussion Form  (CLI) Apr'21 
+Domain: OOPs | Programming Languages:  Java    | 
+Debugged a Discussion Form 
+Using the concepts of OOPs to call various functions. 
+Created UserRoles(), GetRole() to assign the hierarchy of access in the system . 
+ 
+Volume Controlled by Hand Gestures Dec'20 
+Domain: Computer Vison | Programming Languages:  Python  | 
+Built a module using OpenCV to control a device’s volume using hand 
+gestures. 
+Used the NumPy and mediapipe to connect the image feed with the volume 
+function. 
+ 
+ 
+ 
+ACHIEVEMENTS 
+ 
+Amazon Summer ML School  Jun '22 - Jul '22 
+Selected among top 500 students pan -India to get one to one learning from India’s topmost 
+Data Scientist in Amazon. 
+Ranked 2nd all-over university in essay writing competition  Feb '21 - Apr '21 
+ 
+ 
+EDUCATION 
+ 
+B.Tech. in Computer Science Apr '20 - Present 
+Lovely Professional University | Phagwara, IN 
+CGPA 7.96 
+ 
+ 
+ 
+ 
+1 77777 66666 
+ 
+ +91 9784807414 
+https://www.linkedin.com/in/aryaro
+op-majumder-a779691bb/ 
+aryaroop04@gmail.
+com 
+Phagwara, Punjab  
+https://github.com/FiNiX-GaMmA 
+ 

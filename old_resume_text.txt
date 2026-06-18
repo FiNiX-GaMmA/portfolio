@@ -1,0 +1,69 @@
+Aryaroop Majumder
+Associate ML Engineer
+aryaroop04@gmail.com
+ 
+09784807414
+ 
+Bengaluru, India
+ 
+Aryaroop Majumder
+ 
+aryaroop04
+ 
+FiNiX-GaMmA
+ 
+PROFILE
+Dedicated Associate Machine Learning Engineer with 1+ years of experience, specializing in AI and Data 
+Science. Proficient in Python, Cloud technologies(AWS and Azure) Docker, Big Data, Machine Learning, LLM, 
+and AI technologies. Proven ability to quickly adapt and learn cutting-edge technologies. Committed to 
+driving innovative solutions through advanced technical expertise and a passion for emerging technologies.
+PROFESSIONAL EXPERIENCE
+Associate ML Enginner
+Prescience DS
+Data Transformation Product | Backend Developer
+2024 – present
+Bangalore, India
+•Developed a comprehensive data transformation engine using Python, Pandas, 
+and PySpark
+•Implemented advanced data quality solutions, resolving 99.99% of data quality 
+issues
+•Leveraged cloud technologies including AWS (Lambda, Glue, EC2, S3) and Azure 
+(Blob Storage, VM)
+Big Data Production Pipeline Engineering | Data Engineer
+•Engineered advanced big data production pipeline using PySpark and Python
+•Significantly optimized data processing performance: 
+•Reduced data processing speed by 35% for large-scale data workloads
+•Decreased operational costs by 50% through strategic optimization of Data 
+Processing Units (DPUs)
+Data Science Intern
+Prescience DS
+Data Quality Product | Backend Developer
+2023 – 2024
+Bangalore, India
+•Developed a robust data quality solution using Python and Flask API, deployed 
+on AWS (Lambda, Glue, EC2, S3) and Azure (Blob Storage, VM)
+•Optimized codebase, improving performance and accuracy by 30%
+ML End-to-End Solution Product | DevOps and Backend Developer
+•Developed an efficient data pipeline using open-source and free Airflow, 
+reducing recurring costs
+•Optimized codebase, increasing processing speed by 25%
+•Utilized cloud object storage solutions including AWS S3 and Azure Blob Storage
+•Created scalable Flask API for product integration
+Natural Language to SQL Chatbot | LLM Developer
+•Led the development of an innovative NL to SQL chatbot project
+•Implemented multiple open-source LLM models including LLAMA 3.1, Google 
+Flan T5, and Starcoder
+•Developed a user-friendly interface using Streamlit and Flask API
+•Containerized the application using Docker
+•Created a solution enabling non-SQL professionals to interact with and draw 
+insights from complex databases
+EDUCATION
+B.Tech Computer Science Engineering
+Lovely Professional University
+2020 – 2024
+Phagwada, India
+ACOLADES
+Bertelsmann Next Generation Tech Booster Scholarship 2024 – 2025
+Amazon ML Summer School
+Select among top 200 students all over India from various Universities
+2022

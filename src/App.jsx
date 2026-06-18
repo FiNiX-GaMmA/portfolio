@@ -1,0 +1,1480 @@
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Cpu,
+  Database,
+  Cloud,
+  FileText,
+  Download,
+  Award,
+  Shield,
+  CheckCircle2,
+  ChevronRight,
+  MessageSquare,
+  RefreshCw,
+  Send,
+  Terminal,
+  Star,
+  BookOpen,
+  ExternalLink,
+  Heart,
+  Sparkles,
+  ArrowUpRight,
+  Zap,
+  Menu,
+  X,
+  BadgeAlert,
+  Layers,
+  Flame,
+  Check,
+  HelpCircle,
+  Play,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
+import rawData from "./data.json";
+
+export default function App() {
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      content:
+        "Hi! I am **Cortex-Arya v1.2**, an offline-compiled AI semantic console. To prevent generic LLM hallucinations, free-text query has been disabled. \n\nPlease select one of the specific verified database queries below to fetch precise technical details, architectures, and peer reviews.",
+    },
+  ]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentPrompt, setCurrentPrompt] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [carouselPaused, setCarouselPaused] = useState(false);
+  const chatEndRef = useRef(null);
+
+  // Auto-scroll chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
+
+  // Projects list compiled from all your resumes over the years
+  const projects = [
+    {
+      id: "yobitsugi",
+      title: "yobitsugi (呼継ぎ)",
+      category: "AI / Security CLI",
+      desc: "An interactive CLI tool connecting security scanners (SAST/SCA) directly with AI coding assistants (Claude Code, Cursor, Codex, etc.). Scans codebases and guides users step-by-step through security and dependency fixes in real-time.",
+      tech: ["Python", "SAST", "SCA", "CLI", "AI Agents"],
+      github: "https://github.com/FiNiX-GaMmA/yobitsugi",
+      highlight: "Type `/yobitsugi .` in your AI editor",
+    },
+    {
+      id: "searchiq",
+      title: "SearchIQ & SEO-Tool Suite",
+      category: "AI / SEO Platform",
+      desc: "A flagship Scientific Search Intelligence Platform. Maps high-dimensional semantic vector embeddings to cluster search phrases, scores keyword difficulty based on real-time SERP competitive clarity, and features a RAG chatbot for strategy advice.",
+      tech: ["GCP", "GenAI", "RAG", "Vector Embeddings", "Flask", "CI/CD"],
+      proprietary: true,
+      highlight: "Engineered high-dimensional embedding analyzers",
+    },
+    {
+      id: "ats-resume",
+      title: "ATS Shield AI",
+      category: "AI / Agentic Coach",
+      desc: "A containerized, production-grade resume scoring and job-matching coach powered by LangGraph. Features interactive guided resume building and automated applications incorporating an OCR/human-in-the-loop CAPTCHA bypass.",
+      tech: ["LangGraph", "Python", "OCR", "Docker", "Form-Builder"],
+      github: "https://github.com/FiNiX-GaMmA/ats-resume",
+      highlight: "Stateless multi-provider AI backend",
+    },
+    {
+      id: "firetv-helper",
+      title: "Fire TV Customizer & Vanilla Launcher",
+      category: "DevOps / Android OS",
+      desc: "A root-aware ADB debloating system, automatic compilation suite, and runbooks converting Amazon Fire TV devices into ad-free and telemetry-free Android TV interfaces, with DNS-over-TLS ad-blocking via ControlD.",
+      tech: ["ADB", "Shell Scripting", "Android", "Private DNS", "Vanilla UI"],
+      github: "https://github.com/FiNiX-GaMmA/firetv-home-helper",
+      highlight: "Freezes 120+ telemetry & bloatware apps",
+    },
+    {
+      id: "nl-to-sql",
+      title: "Natural Language to SQL Chatbot",
+      category: "GenAI / LLM App",
+      desc: "Developed an innovative NL-to-SQL chatbot enabling non-SQL professionals to interact with and draw insights from databases. Leveraged open-source models like Llama 3.1, Google Flan T5, and Starcoder.",
+      tech: ["Llama 3.1", "Flan-T5", "Streamlit", "Flask API", "Docker"],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Built for non-SQL database users",
+    },
+    {
+      id: "lego-tagging",
+      title: "LEGO Multimodal Tagging",
+      category: "Computer Vision",
+      desc: "Engineered a GenAI product-tagging automation combining product image signals with onsite textual web scrapers, significantly reducing manual taxonomy effort and improving cataloging accuracy.",
+      tech: ["Computer Vision", "Multimodal LLM", "Scrapers", "Python"],
+      proprietary: true,
+      highlight: "Vision-language product tagger",
+    },
+    {
+      id: "halcyon-classifier",
+      title: "Halcyon Topical Classifier",
+      category: "NLP / Clustering",
+      desc: "Implemented a client-agnostic topical classification system, utilizing advanced NLP clustering algorithms to accurately categorize diverse search phrases across client data sources.",
+      tech: ["NLP", "Topical Classifier", "Clustering", "Python"],
+      proprietary: true,
+      highlight: "Client-agnostic semantic text analyzer",
+    },
+    {
+      id: "pymc",
+      title: "TWC PyMC Bayesian Modeling",
+      category: "Data Science / Stats",
+      desc: "Adapts daily app-install metrics into 5 Bayesian modeling patterns: hierarchical partial pooling (8-schools pattern), ordinal logistic regression for Net_Trust levels, stochastic volatility, and Gaussian mixtures.",
+      tech: [
+        "PyMC v5",
+        "Bayesian Inference",
+        "Marimo",
+        "ArviZ",
+        "Stochastic Volatility",
+      ],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Statistical Marketing Mix Modeling",
+    },
+    {
+      id: "wallet",
+      title: "Wallet Link Scanner",
+      category: "Android App",
+      desc: "A personal Android app and local backend turning physical ticket screenshots into official Google Wallet or Samsung Wallet passes using ML Kit Barcode scanning and OCR text recognition.",
+      tech: ["Kotlin", "Android SDK", "Google Wallet API", "ML Kit OCR"],
+      github: "https://github.com/FiNiX-GaMmA/wallet",
+      highlight: "Extracts editable ticket structures",
+    },
+    {
+      id: "seo-similarity",
+      title: "Keyword-URL Similarity Dashboard",
+      category: "SEO Science",
+      desc: "Streamlit dashboard analyzing semantic cosine similarity between keywords and target URLs. Features PostgreSQL user authentication and robust data connectors pulling from Google Sheets and BigQuery.",
+      tech: [
+        "Streamlit",
+        "PostgreSQL",
+        "BigQuery",
+        "Google Sheets",
+        "Cosine Similarity",
+      ],
+      github: "https://github.com/FiNiX-GaMmA/Seo_suite",
+      highlight: "Semantic text matching dashboard",
+    },
+    {
+      id: "hand-gestures",
+      title: "Gesture Controlled Volume",
+      category: "Computer Vision",
+      desc: "Built a custom OpenCV and Mediapipe module to control your computer system device volume using hand gestures. NumPy mapped the physical distance in the video feed to OS volume APIs.",
+      tech: ["OpenCV", "Mediapipe", "NumPy", "Python"],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Mediapipe hand tracking matrix engine",
+    },
+    {
+      id: "heart-disease",
+      title: "Heart Disease Prediction model",
+      category: "Machine Learning",
+      desc: "Built a classification machine learning model using scikit-learn and TensorFlow to predict the chance of a patient having heart disease from their blood metrics. Applied hyper-parameter tuning.",
+      tech: ["Scikit-Learn", "TensorFlow", "Python", "GridSearch"],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Achieved high risk classification",
+    },
+    {
+      id: "global-terrorism",
+      title: "Global Terrorism Dataset Analysis",
+      category: "Data Analytics",
+      desc: "Performed full Exploratory Data Analysis (EDA) on the Global Terrorism Dataset. Conducted data cleansing, manipulation, and geospatial mapping to extract global hot zones and trends.",
+      tech: ["Pandas", "Python", "Data Cleansing", "Geospatial mapping"],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Extracted key safety hot zone trends",
+    },
+    {
+      id: "scratch-classifier",
+      title: "Logistic Classifier from Scratch",
+      category: "Deep Learning",
+      desc: "Constructed an image classifier model (cat vs non-cat) completely from scratch utilizing logistic regression and raw mathematical matrix calculus without Scikit-Learn or TensorFlow.",
+      tech: [
+        "Python",
+        "Matrix Calculus",
+        "Sigmoid Function",
+        "Logistic Regression",
+      ],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Constructed with raw Sigmoid calculus",
+    },
+    {
+      id: "discussion-forum",
+      title: "Discussion Forum Access-Level",
+      category: "Java / OOP",
+      desc: "Built a Java command-line discussion forum utilizing Object-Oriented principles. Developed UserRoles() and GetRole() functions to handle hierarchical access systems.",
+      tech: ["Java", "Object Oriented Programming", "Access Control", "CLI"],
+      github: "https://github.com/FiNiX-GaMmA",
+      highlight: "Java CLI user authentication forum",
+    },
+    {
+      id: "omniverse",
+      title: "Omniverse Media Player",
+      category: "Native Streaming",
+      desc: "An ultra-premium, blazing-fast native media companion app for iOS, iPadOS, Android, and Android TV devices, supporting high-throughput private local streaming.",
+      tech: ["Kotlin", "Swift", "ExoPlayer", "AVKit", "Native UX"],
+      github: "https://github.com/FiNiX-GaMmA/omniplay",
+      highlight: "Completely native streaming client",
+    },
+  ];
+
+  // Autoslide effect
+  useEffect(() => {
+    if (carouselPaused) return;
+    const interval = setInterval(() => {
+      setCarouselIndex((prevIndex) => (prevIndex + 1) % projects.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [carouselPaused, projects.length]);
+
+  const handleNextProject = () => {
+    setCarouselIndex((prevIndex) => (prevIndex + 1) % projects.length);
+  };
+
+  const handlePrevProject = () => {
+    setCarouselIndex(
+      (prevIndex) => (prevIndex - 1 + projects.length) % projects.length,
+    );
+  };
+
+  // Helper to sanitize emails and provide clean professional titles
+  const getFriendlyAuthor = (email) => {
+    if (!email) return { name: "Engineering Peer", role: "Collaborator" };
+    const lower = email.toLowerCase();
+    if (lower.includes("sushrut"))
+      return { name: "Sushrut T.", role: "Data Science Lead" };
+    if (lower.includes("anusha"))
+      return { name: "Anusha K.", role: "Senior Analyst" };
+    if (lower.includes("gaurav"))
+      return { name: "Gaurav M.", role: "Director, MMM" };
+    if (lower.includes("yash"))
+      return { name: "Yash W.", role: "Product Associate" };
+    if (lower.includes("tushar"))
+      return { name: "Tushar P.", role: "DevOps & Infrastructure Lead" };
+    if (lower.includes("michele"))
+      return { name: "Michele L.", role: "Engineering Lead" };
+    if (lower.includes("divya"))
+      return { name: "Divya P.", role: "Engagement Lead" };
+    if (lower.includes("santosh"))
+      return { name: "Santosh K.", role: "Agile Delivery Lead" };
+
+    // fallback
+    const parts = email.split("@")[0].split(".");
+    const name = parts
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+    return { name, role: "Engineering Colleague" };
+  };
+
+  // Preset chatbot prompts with explicit, verified responses
+  const chatPrompts = [
+    {
+      q: "Explain the yobitsugi architecture",
+      id: "yobitsugi",
+      reply:
+        "**yobitsugi (呼継ぎ)** is an interactive CLI scanner built in Python. It solves the gap between static analysis tools and real-time developer workflows by linking standard SAST (Static Application Security Testing) and SCA (Software Composition Analysis) scanners directly with terminal-based LLM assistants.\n\nKey Mechanics:\n* **SAST/SCA Hook:** Automates codebase scanning for vulnerable dependencies, leaked API keys, and injection vectors.\n* **Incremental Repair Cycles:** Passes the JSON audit logs to your active AI assistant (Claude, Cursor, Aider, etc.).\n* **Guided Interactive Fixes:** Guides the developer through editing files line-by-line, verifying fixes against compiler checks in real-time.",
+    },
+    {
+      q: "What did Arya build for LEGO Group?",
+      id: "lego",
+      reply:
+        "For **LEGO Group**, Arya developed and shipped an **automated product-tagging engine** driven by GenAI and multimodal inputs.\n\nKey accomplishments on this project:\n* **Multimodal Fusion:** Engineered a system that ingests raw physical product images and processes them alongside scraped webpage textual catalogs.\n* **Semantic Enrichment:** Leveraged vision-language signals to map products to specific, standardized taxonomy tags.\n* **Operational Impact:** Drastically reduced the manual categorization labor previously required by LEGO data content teams, yielding immediate business value and high stakeholder satisfaction.",
+    },
+    {
+      q: "Detail the SearchIQ platform capabilities",
+      id: "searchiq",
+      reply:
+        "**SearchIQ** is a flagship Scientific Search Intelligence Platform deployed on Google Cloud Platform (GCP). Arya built the backend microservices and analysis utilities.\n\nPlatform Core Features:\n1. **High-Dimensional Embedding Analyzer:** Uses vector embeddings and cosine similarity clustering to map and cluster search phrases.\n2. **RAG Search Strategy Chatbot:** An LLM-powered advisory bot enabling search strategists to perform conversational keyword mappings and query search volume curves.\n3. **SERP competitive clarity engine:** Evaluates the difficulty and organic ranking potential of target search terms by parsing live SERP features.",
+    },
+    {
+      q: "What is Arya's core engineering tech stack?",
+      id: "skills",
+      reply:
+        "Arya's core capabilities map across four specialized disciplines:\n\n* **Machine Learning & GenAI:** LangGraph (stateful agents), RAG pipelines, Vector Embeddings (cosine similarity clustering), Prompt Engineering, Topical Classification.\n* **Data Engineering & Cloud:** Python, PySpark, SQL, Pandas, AWS (Glue, Lambda, S3, EC2), GCP, Azure, Airflow (orchestration), Docker, CI/CD.\n* **Analytics & Statistics:** Bayesian statistical modeling with **PyMC v5** (hierarchical pooling, ordinal logistic regression, stochastic app-install modeling), Demand Forecasting.\n* **Android Development:** Native Android Kotlin, ML Kit (OCR & Barcode scanning), Photo Picker integration, Wallet API linkages.",
+    },
+    {
+      q: "Display colleague review accolades",
+      id: "accolades",
+      reply:
+        "Here is verified peer feedback from Arya's development logs:\n\n* **Sushrut T. (Data Science Lead):** *'Arya successfully delivered the demo of our new AI SEO tool, SearchIQ, with great confidence. On the Halcyon project, Arya displayed excellent proactivity.'*\n* **Anusha K. (Senior Analyst):** *'Huge Shoutout to Arya for implementing the client-agnostic topical classification system... His ability to manage tasks significantly boosts overall team velocity.'*\n* **Tushar P. (DevOps & Infrastructure Lead):** *'Arya brings infectious energy and an excellent, scalable perspective... He excels at developing automated, long-term solutions for complex data pipelines.'*\n* **Yash W. (Product Associate):** *'Thank you, Arya, for the comprehensive walkthrough of the LEGO use case and for articulating the concepts so clearly.'*",
+    },
+  ];
+
+  const handlePromptClick = (prompt) => {
+    if (isTyping) return;
+
+    setCurrentPrompt(prompt.id);
+
+    // Add user message
+    const updatedMessages = [...messages, { role: "user", content: prompt.q }];
+    setMessages(updatedMessages);
+    setIsTyping(true);
+
+    // Simulate RAG chatbot database query response
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: prompt.reply },
+      ]);
+      setIsTyping(false);
+    }, 1000);
+  };
+
+  // Get visible indices for the carousel
+  const getVisibleProjects = () => {
+    const list = [];
+    for (let i = 0; i < Math.min(3, projects.length); i++) {
+      list.push(projects[(carouselIndex + i) % projects.length]);
+    }
+    return list;
+  };
+
+  return (
+    <div className="min-h-screen bg-brainlabs-cream text-slate-900 font-sans flex flex-col relative selection:bg-brainlabs-pink selection:text-white">
+      {/* 1. Header & Navigation */}
+      <header className="sticky top-0 z-50 bg-white border-b-3 border-slate-900 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-slate-900 border-2 border-slate-900 rounded-lg flex items-center justify-center relative shadow-[3px_3px_0px_0px_#ff5c8d]">
+              <span className="text-white font-extrabold text-xl font-mono">
+                A
+              </span>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-brainlabs-blue rounded-full border border-slate-950 animate-pulse" />
+            </div>
+            <div>
+              <h1 className="font-extrabold tracking-tighter text-xl text-slate-900 flex items-center gap-1.5 leading-none">
+                ARYAROOP{" "}
+                <span className="text-brainlabs-pink font-light">×</span>{" "}
+                MAJUMDER
+              </h1>
+              <p className="text-[10px] uppercase tracking-widest text-slate-600 font-black font-mono">
+                Scientific Engineering
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-8 font-black text-sm text-slate-800">
+            <a
+              href="#about"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              About
+            </a>
+            <a
+              href="#projects"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              Projects
+            </a>
+            <a
+              href="#timeline"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              Milestones
+            </a>
+            <a
+              href="#certifications"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              Certifications
+            </a>
+            <a
+              href="#accolades"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              Testimonials
+            </a>
+            <a
+              href="#chatbot"
+              className="hover:text-brainlabs-pink transition-colors flex items-center gap-1"
+            >
+              <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block animate-ping" />{" "}
+              Ask AI
+            </a>
+          </nav>
+
+          {/* Actions */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href="./Aryaroop_Majumder_ATS_Resume.pdf"
+              download="Aryaroop_Majumder_Resume.pdf"
+              className="bg-white text-slate-900 border-3 border-slate-900 px-5 py-2 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#ff5c8d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ff5c8d] transition-all flex items-center gap-2"
+            >
+              <Download className="w-4 h-4 text-brainlabs-pink" /> Download
+              Resume
+            </a>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden border-3 border-slate-900 p-1.5 bg-white shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden border-t-3 border-slate-200 bg-white overflow-hidden"
+            >
+              <div className="px-4 py-6 flex flex-col gap-4 font-black text-base text-slate-700">
+                <a
+                  href="#about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink"
+                >
+                  About
+                </a>
+                <a
+                  href="#projects"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink"
+                >
+                  Projects
+                </a>
+                <a
+                  href="#timeline"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink"
+                >
+                  Milestones
+                </a>
+                <a
+                  href="#certifications"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink"
+                >
+                  Certifications
+                </a>
+                <a
+                  href="#accolades"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink"
+                >
+                  Testimonials
+                </a>
+                <a
+                  href="#chatbot"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-brainlabs-pink flex items-center gap-2"
+                >
+                  <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block" />{" "}
+                  Chat with Cortex AI
+                </a>
+                <a
+                  href="./Aryaroop_Majumder_ATS_Resume.pdf"
+                  download="Aryaroop_Majumder_Resume.pdf"
+                  className="bg-brainlabs-pink text-white border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2"
+                >
+                  <Download className="w-4 h-4" /> Download Resume
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* 2. Hero Section */}
+      <section
+        id="about"
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 grid md:grid-cols-12 gap-12 items-center"
+      >
+        {/* Hero Left Info */}
+        <div className="md:col-span-7 flex flex-col gap-6">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 bg-white text-slate-900 border-3 border-slate-900 px-4 py-2 text-xs font-black w-fit uppercase tracking-wider shadow-[3px_3px_0px_0px_#80dbff]">
+            <Zap className="w-4 h-4 text-brainlabs-pink fill-brainlabs-pink" />
+            The most agentic portfolio
+          </div>
+
+          {/* Headline */}
+          <h2 className="text-4xl sm:text-6xl font-black tracking-tighter leading-none text-slate-900 uppercase">
+            What's your next best move to{" "}
+            <span className="text-brainlabs-pink underline decoration-brainlabs-blue decoration-4 sm:decoration-8">
+              maximize
+            </span>{" "}
+            AI &amp; Engineering?
+          </h2>
+
+          <p className="text-lg sm:text-xl font-bold text-slate-700 leading-relaxed max-w-2xl">
+            Hi, I'm{" "}
+            <strong className="text-slate-900 font-extrabold font-mono">
+              @Arya
+            </strong>
+            . I'm a Data Science Specialist and ML Engineer building
+            high-throughput GenAI, RAG tools, and Bayesian statistical engines.
+            Built to drive provable results, not just activities.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap gap-4 mt-2">
+            <a
+              href="#projects"
+              className="bg-slate-900 text-white border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#ff5c8d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ff5c8d] transition-all flex items-center gap-2"
+            >
+              Explore My Works{" "}
+              <ChevronRight className="w-5 h-5 text-brainlabs-blue" />
+            </a>
+            <a
+              href="#chatbot"
+              className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2"
+            >
+              <MessageSquare className="w-5 h-5 text-brainlabs-pink" /> Consult
+              Cortex-Arya AI
+            </a>
+          </div>
+
+          {/* Social Stats Row */}
+          <div className="flex items-center gap-6 mt-4 text-xs font-black text-slate-600">
+            <a
+              href="https://github.com/FiNiX-GaMmA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-brainlabs-pink transition-colors"
+            >
+              <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
+                GitHub
+              </span>{" "}
+              @FiNiX-GaMmA
+            </a>
+            <a
+              href="https://aryaroop04.medium.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-brainlabs-pink transition-colors"
+            >
+              <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
+                Medium
+              </span>{" "}
+              @aryaroop04
+            </a>
+          </div>
+        </div>
+
+        {/* Hero Right Dashboard Panel */}
+        <div className="md:col-span-5 relative">
+          {/* Main Boxy Dashboard Card */}
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-none shadow-[6px_6px_0px_0px_#ff5c8d] relative overflow-hidden">
+            {/* Red accent dot */}
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-red-50 text-red-600 border-2 border-red-200 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
+              <span className="w-2 h-2 bg-red-500 rounded-full animate-ping" />{" "}
+              Live Status
+            </div>
+
+            {/* Title / Header */}
+            <div className="border-b-3 border-slate-900 pb-4 mb-4">
+              <h3 className="font-mono font-black text-xs text-brainlabs-pink uppercase tracking-widest">
+                Active System Profile
+              </h3>
+              <p className="font-black text-2xl tracking-tight text-slate-900">
+                CORTEX-ARYA v1.2
+              </p>
+            </div>
+
+            {/* Profile Metrics */}
+            <div className="flex flex-col gap-4 font-black">
+              <div className="flex justify-between items-center border-b-2 border-slate-100 pb-2">
+                <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
+                  Title Level
+                </span>
+                <span className="text-xs font-black text-white bg-brainlabs-pink border-2 border-slate-900 px-2.5 py-0.5 shadow-[1.5px_1.5px_0px_0px_#000]">
+                  Specialist, Data Science
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center border-b-2 border-slate-100 pb-2">
+                <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
+                  Experience Level
+                </span>
+                <span className="text-sm font-black text-slate-800 uppercase font-mono">
+                  3+ Years (Full-time &amp; Intern)
+                </span>
+              </div>
+
+              <div className="flex justify-between items-start border-b-2 border-slate-100 pb-2">
+                <span className="text-xs font-black uppercase text-slate-500 tracking-wider mt-1">
+                  Credentials
+                </span>
+                <div className="flex flex-col gap-1.5 items-end">
+                  <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-pink-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
+                    <Award className="w-4 h-4 text-brainlabs-pink" /> Anthropic
+                    MCP
+                  </span>
+                  <span className="text-[11px] font-black text-slate-800 flex items-center gap-1.5 bg-yellow-50 px-2.5 py-1 border-2 border-slate-900 rounded shadow-[1px_1px_0px_0px_rgba(0,0,0,0.1)]">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />{" "}
+                    Amazon ML Summer (Top 200)
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
+                  KPI Utilization
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="w-24 bg-slate-100 h-3 border-2 border-slate-900 rounded-full overflow-hidden">
+                    <div className="bg-brainlabs-green h-full w-full" />
+                  </div>
+                  <span className="text-xs font-black font-mono text-slate-800">
+                    100% (Delivering)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Miniature bottom log */}
+            <div className="mt-5 bg-slate-50 p-2.5 rounded-none font-mono text-[10px] text-slate-700 border-2 border-slate-900">
+              <p className="text-brainlabs-pink font-black">
+                &gt; sys.load_metrics().status
+              </p>
+              <p className="text-slate-900 font-bold">
+                &quot;Operational Excellence: 100% timesheets&quot;
+              </p>
+              <p className="text-brainlabs-blue font-black">
+                &gt; sys.run_pipeline() : Success (35% speedup)
+              </p>
+            </div>
+          </div>
+
+          {/* Absolute Background Boxy Outlines */}
+          <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-slate-900 -z-10 bg-brainlabs-pink/20" />
+          <div className="absolute -bottom-6 -right-6 w-full h-full border-3 border-slate-900 -z-20 bg-brainlabs-blue/20" />
+        </div>
+      </section>
+
+      {/* 3. Interactive RAG Chatbot Section */}
+      <section
+        id="chatbot"
+        className="bg-white py-16 md:py-24 border-y-3 border-slate-900 relative overflow-hidden"
+      >
+        {/* Subtle grid pattern background */}
+        <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:32px_24px]" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-xs bg-pink-50 text-brainlabs-pink border-3 border-brainlabs-pink px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff]">
+              Verified AI Semantic Agent
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
+              Query Cortex-Arya Database
+            </h2>
+            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+              Select a verified vector query below to instantly fetch specific
+              technical details, architectures, and client project results.
+            </p>
+          </div>
+
+          {/* Chat Interface Panel (Light-Themed IDE) */}
+          <div className="border-3 border-slate-900 bg-white rounded-none overflow-hidden shadow-[8px_8px_0px_0px_#ff5c8d]">
+            {/* Terminal Window Header */}
+            <div className="bg-slate-50 border-b-3 border-slate-900 px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full border border-slate-900" />
+                <div className="w-3 h-3 bg-yellow-500 rounded-full border border-slate-900" />
+                <div className="w-3 h-3 bg-green-500 rounded-full border border-slate-900" />
+                <span className="font-mono text-xs text-slate-700 font-black ml-2">
+                  cortex_assistant.py
+                </span>
+              </div>
+              <div className="font-mono text-[10px] text-brainlabs-pink font-black uppercase tracking-wider">
+                Model: Gemini 3.5 + AryaRAG v1
+              </div>
+            </div>
+
+            {/* Chat Body */}
+            <div className="h-96 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50 font-mono text-xs sm:text-sm border-b-3 border-slate-900">
+              <AnimatePresence>
+                {messages.map((m, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-lg border-2 p-4 ${
+                        m.role === "user"
+                          ? "bg-brainlabs-pink text-white border-slate-900 shadow-[3px_3px_0px_0px_#1b1b1b]"
+                          : "bg-white text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#ff5c8d]"
+                      }`}
+                    >
+                      <p
+                        className={`font-black text-[9px] uppercase tracking-widest mb-1.5 ${m.role === "user" ? "text-pink-100" : "text-brainlabs-pink font-black"}`}
+                      >
+                        {m.role === "user"
+                          ? "► Selected Query"
+                          : "🤖 Cortex AI"}
+                      </p>
+                      <p className="whitespace-pre-line leading-relaxed text-xs sm:text-sm text-slate-900 font-bold">
+                        {m.content}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+
+                {isTyping && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex justify-start"
+                  >
+                    <div className="bg-white border-2 border-slate-900 p-3 rounded-lg shadow-[3px_3px_0px_0px_#ff5c8d] flex items-center gap-2.5 text-slate-800 font-mono text-xs font-black">
+                      <RefreshCw className="w-4 h-4 animate-spin text-brainlabs-pink" />
+                      <span>RAG matching semantic vectors...</span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div ref={chatEndRef} />
+            </div>
+
+            {/* Select Prompt Panel - High contrast light theme */}
+            <div className="bg-white p-6">
+              <p className="font-mono text-xs uppercase font-black text-slate-800 mb-4 flex items-center gap-2">
+                <Terminal className="w-4 h-4 text-brainlabs-pink" />
+                Select Vector Query to Run:
+              </p>
+
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {chatPrompts.map((p, i) => (
+                  <button
+                    key={i}
+                    disabled={isTyping}
+                    onClick={() => handlePromptClick(p)}
+                    className={`bg-slate-50 text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-pink hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ff5c8d] rounded-lg font-black ${
+                      isTyping
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
+                    }`}
+                  >
+                    <span className="group-hover:text-brainlabs-pink transition-colors pr-2 leading-snug">
+                      {p.q}
+                    </span>
+                    <Play className="w-3.5 h-3.5 text-slate-900 group-hover:text-brainlabs-pink transition-all shrink-0 fill-slate-900 group-hover:fill-brainlabs-pink" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Scientific Practice Capabilities */}
+      <section className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs bg-brainlabs-blue/20 text-slate-800 border-2 border-brainlabs-blue px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
+            Capabilities Matrix
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
+            My Engineering Practices
+          </h2>
+          <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+            My core competencies aligned directly with high-performance modern
+            scientific engineering practices.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Card 1 */}
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ff5c8d] hover:shadow-[8px_8px_0px_0px_#ff5c8d] transition-all flex flex-col justify-between rounded-lg">
+            <div>
+              <div className="w-12 h-12 bg-pink-50 border-2 border-pink-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
+                <Search className="w-6 h-6 text-brainlabs-pink" />
+              </div>
+              <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
+                Semantic AI &amp; SEO
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold">
+                SEO analytics, site experiences, and automated scrapers mapping
+                keyword queries against live search results using clustering
+                algorithms and custom scrapers.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-slate-100 font-mono text-[10px] text-slate-400">
+              ⚡ SearchIQ • Screaming Frog alternative • Halcyon classification
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#80dbff] hover:shadow-[8px_8px_0px_0px_#80dbff] transition-all flex flex-col justify-between rounded-lg">
+            <div>
+              <div className="w-12 h-12 bg-blue-50 border-2 border-blue-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
+                <Database className="w-6 h-6 text-brainlabs-blue" />
+              </div>
+              <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
+                Bayesian Statistics
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold">
+                Bayesian Marketing Mix Modeling (MMM) with PyMC v5. Structuring
+                multi-layered frameworks with partial pooling, ordinal metrics,
+                and stochastic app returns.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t-2 border-slate-100 font-mono text-[10px] text-slate-500 font-black">
+              ⚡ PyMC Modeling • Beall's MMM Fitment • Ordinal Regression
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ff5c8d] hover:shadow-[8px_8px_0px_0px_#ff5c8d] transition-all flex flex-col justify-between rounded-lg">
+            <div>
+              <div className="w-12 h-12 bg-yellow-50 border-2 border-yellow-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
+                <Cpu className="w-6 h-6 text-yellow-600" />
+              </div>
+              <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
+                GenAI &amp; RAG Agents
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold">
+                LangGraph stateful orchestration, semantic vector retrieval
+                (RAG), LEGO tagging automations merging visual computer signals
+                with onsite textual data.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t-2 border-slate-100 font-mono text-[10px] text-slate-500 font-black">
+              ⚡ RAG Chatbots • LangGraph Resume • Computer Vision Tagging
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#80dbff] hover:shadow-[8px_8px_0px_0px_#80dbff] transition-all flex flex-col justify-between rounded-lg">
+            <div>
+              <div className="w-12 h-12 bg-green-50 border-2 border-green-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
+                <Cloud className="w-6 h-6 text-brainlabs-green" />
+              </div>
+              <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
+                Cloud &amp; Pipelines
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold">
+                Building scalable data transformation engines with
+                PySpark/Pandas pipelines, scheduling with Airflow, and running
+                containerized workflows across GCP and AWS.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t-2 border-slate-100 font-mono text-[10px] text-slate-500 font-black">
+              ⚡ AWS Advanced ML • AWS Glue / Lambda • Docker Swarms • Airflow
+              Pipelines
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Autosliding Projects Carousel Section */}
+      <section
+        id="projects"
+        className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900 bg-brainlabs-cream"
+      >
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+              Engineering Artifacts
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
+              My Full History of Projects
+            </h2>
+            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2 max-w-xl">
+              An autosliding horizontal carousel displaying all projects built
+              over the years, direct from your resume files.
+            </p>
+          </div>
+
+          {/* Carousel Manual Controls */}
+          <div className="flex items-center gap-3 mt-6 md:mt-0">
+            <button
+              onClick={handlePrevProject}
+              className="w-12 h-12 bg-white border-3 border-slate-900 rounded-lg flex items-center justify-center shadow-[3px_3px_0px_0px_#1b1b1b] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] transition-all cursor-pointer"
+            >
+              <ArrowLeft className="w-5 h-5 text-slate-900 font-black" />
+            </button>
+            <button
+              onClick={handleNextProject}
+              className="w-12 h-12 bg-white border-3 border-slate-900 rounded-lg flex items-center justify-center shadow-[3px_3px_0px_0px_#1b1b1b] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ff5c8d] active:translate-x-[0px] active:translate-y-[0px] transition-all cursor-pointer"
+            >
+              <ArrowRight className="w-5 h-5 text-slate-900 font-black" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Grid Track */}
+        <div
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          onMouseEnter={() => setCarouselPaused(true)}
+          onMouseLeave={() => setCarouselPaused(false)}
+        >
+          {getVisibleProjects().map((proj) => (
+            <motion.div
+              key={proj.id}
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px]"
+            >
+              {proj.featured && (
+                <div className="absolute top-0 right-0 bg-brainlabs-pink text-white border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
+                  Featured
+                </div>
+              )}
+
+              <div>
+                <span className="text-[9px] uppercase font-black tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 rounded border-2 border-slate-900">
+                  {proj.category}
+                </span>
+                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 leading-tight mt-3">
+                  {proj.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-bold mt-3 overflow-hidden text-ellipsis line-clamp-4">
+                  {proj.desc}
+                </p>
+              </div>
+
+              <div>
+                {/* Tech stack badges */}
+                <div className="flex flex-wrap gap-1 mb-4">
+                  {proj.tech.slice(0, 4).map((t, i) => (
+                    <span
+                      key={i}
+                      className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-700"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                  {proj.tech.length > 4 && (
+                    <span className="bg-slate-50 text-[9px] font-black px-1.5 py-0.5 rounded border-2 border-slate-900 text-slate-500">
+                      +{proj.tech.length - 4} more
+                    </span>
+                  )}
+                </div>
+
+                {/* CTAs */}
+                <div className="flex items-center gap-4 pt-3 border-t-2 border-slate-100">
+                  {proj.proprietary ? (
+                    <span className="text-xs font-black text-slate-500 flex items-center gap-1.5 bg-slate-100/60 p-1.5 px-2.5 border-2 border-slate-300 rounded font-mono">
+                      🔒 Enterprise Proprietary
+                    </span>
+                  ) : (
+                    <a
+                      href={proj.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-black text-slate-900 hover:text-brainlabs-pink flex items-center gap-1 hover:underline"
+                    >
+                      GitHub Repo{" "}
+                      <ArrowUpRight className="w-4 h-4 text-slate-900" />
+                    </a>
+                  )}
+                  {proj.pypi && (
+                    <a
+                      href={proj.pypi}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-black text-brainlabs-pink bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-pink rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
+                    >
+                      PyPI
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Medium Blog Banner */}
+        <div className="mt-12 bg-white border-3 border-slate-900 p-8 flex flex-col md:flex-row items-center justify-between shadow-[6px_6px_0px_0px_#80dbff] gap-6 rounded-lg">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 bg-pink-50 border-2 border-slate-900 rounded-full flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+              <BookOpen className="w-8 h-8 text-brainlabs-pink" />
+            </div>
+            <div>
+              <h3 className="font-extrabold text-lg sm:text-xl text-slate-950 uppercase leading-none">
+                Read Arya's Medium Publication
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-700 font-bold mt-2">
+                Articles on RAG chatbots, docker-workflows, and deploying cloud
+                models.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://aryaroop04.medium.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2 w-full md:w-auto justify-center rounded-lg font-black"
+          >
+            Visit Medium Blog{" "}
+            <ExternalLink className="w-4 h-4 text-brainlabs-pink" />
+          </a>
+        </div>
+      </section>
+
+      {/* 6. Professional Milestones Timeline Section */}
+      <section
+        id="timeline"
+        className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900"
+      >
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs bg-pink-50 text-brainlabs-pink border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
+            Professional Timeline
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
+            Career Milestones &amp; History
+          </h2>
+          <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+            Chronological log of my 3+ years of professional engineering and
+            data science deployments.
+          </p>
+        </div>
+
+        {/* Timeline List of Cards */}
+        <div className="flex flex-col gap-8 max-w-4xl mx-auto relative pl-6 border-l-4 border-slate-900 py-2">
+          {/* Milestone 1 */}
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#ff5c8d]">
+            {/* Timeline Circle Bullet */}
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-pink border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
+              <div>
+                <span className="text-[10px] font-black uppercase bg-pink-50 border-2 border-brainlabs-pink text-brainlabs-pink px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                  Full-Time Specialist
+                </span>
+                <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
+                  Data Science Specialist
+                </h3>
+              </div>
+              <span className="font-mono text-xs font-black text-slate-600 bg-slate-100 border border-slate-200 p-1.5 rounded">
+                Apr 2025 - Present
+              </span>
+            </div>
+
+            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800 font-bold leading-relaxed list-disc pl-4">
+              <li>
+                Engineered and deployed **SearchIQ** AI SEO suite microservices
+                on GCP incorporating **high-dimensional vector mapping** and
+                topic clustering.
+              </li>
+              <li>
+                Built and shipped **LEGO multimodal product tagging** automation
+                merging onsite web text data with computer vision image
+                classification models.
+              </li>
+              <li>
+                Created client-agnostic topical text classification engine for
+                **Halcyon project**, accurately mapping diverse query phrases
+                dynamically.
+              </li>
+              <li>
+                Delivered core utility microservices: SERP feature analyzers,
+                keywords volume mapping, Screaming Frog custom alternative.
+              </li>
+              <li>
+                Coached technical knowledge sharing on Docker swarms, Bayesian
+                MMM modeling, and Agentic AI workflows.
+              </li>
+            </ul>
+          </div>
+
+          {/* Milestone 2 */}
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#80dbff]">
+            {/* Timeline Circle Bullet */}
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-blue border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
+              <div>
+                <span className="text-[10px] font-black uppercase bg-blue-50 border-2 border-brainlabs-blue text-brainlabs-blue px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                  Full-Time Associate
+                </span>
+                <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
+                  Associate ML Engineer
+                </h3>
+                <p className="text-xs text-slate-500 font-black mt-1">
+                  Prescience Decision Solutions
+                </p>
+              </div>
+              <span className="font-mono text-xs font-black text-slate-600 bg-slate-100 border border-slate-200 p-1.5 rounded">
+                Aug 2024 - Mar 2025
+              </span>
+            </div>
+
+            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800 font-bold leading-relaxed list-disc pl-4">
+              <li>
+                Designed and implemented a modular **Data Transformation
+                Engine** built in Python, Pandas, and **PySpark** for highly
+                scalable backend computations.
+              </li>
+              <li>
+                Developed and enforced extensive backend data quality
+                validations that **resolved 99.99% of identified data
+                anomalies** across supported client pipelines.
+              </li>
+              <li>
+                Optimized large-scale PySpark data pipelines, resulting in a
+                **35% speed improvement** and a **50% cloud platform cost
+                reduction** by strategic DPU allocation.
+              </li>
+              <li>
+                Maintained microservice APIs and automated workflows on AWS
+                (Lambda, Glue, S3, EC2) and Azure (Blob Storage, VMs).
+              </li>
+            </ul>
+          </div>
+
+          {/* Milestone 3 */}
+          <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#cbd5e1]">
+            {/* Timeline Circle Bullet */}
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-slate-400 border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
+              <div>
+                <span className="text-[10px] font-black uppercase bg-slate-100 border-2 border-slate-500 text-slate-600 px-2.5 py-0.5 rounded shadow-[1px_1px_0px_0px_#000]">
+                  Engineering Intern
+                </span>
+                <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
+                  Data Science Intern
+                </h3>
+                <p className="text-xs text-slate-500 font-black mt-1">
+                  Prescience Decision Solutions
+                </p>
+              </div>
+              <span className="font-mono text-xs font-black text-slate-600 bg-slate-100 border border-slate-200 p-1.5 rounded">
+                Jun 2023 - Jul 2024
+              </span>
+            </div>
+
+            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-800 font-bold leading-relaxed list-disc pl-4">
+              <li>
+                Built a comprehensive **Data Quality validation product** using
+                Python and Flask API, and optimized code execution speed by 30%.
+              </li>
+              <li>
+                Created a decoupled, automated ML/Data pipeline using
+                open-source **Apache Airflow**, reducing third-party
+                orchestration SaaS costs and boosting processing speed by 25%.
+              </li>
+              <li>
+                Led the design and deployment of an innovative **Natural
+                Language to SQL chatbot** using Llama 3.1, Flan-T5, StarCoder,
+                and Streamlit, containerized under Docker for non-technical
+                database stakeholders.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* 6.5 Dedicated Certifications Section */}
+      <section
+        id="certifications"
+        className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900 bg-brainlabs-cream/30"
+      >
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs bg-white text-brainlabs-pink border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff]">
+            Academic Credentials
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
+            Professional Certifications
+          </h2>
+          <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+            Verified professional and technical credentials specializing in
+            Advanced GenAI, Big Data, and Machine Learning.
+          </p>
+        </div>
+
+        {/* Certifications Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {[
+            {
+              title: "Introduction to Model Context Protocol (MCP)",
+              issuer: "Anthropic",
+              date: "Issued Jun 2026",
+              id: "vgh5txmx3dbi",
+              link: "https://verify.skilljar.com/c/vgh5txmx3dbi",
+              color: "pink",
+            },
+            {
+              title:
+                "Building GenAI Solutions with Best Practices & Design Choices - Technical (Level 300)",
+              issuer: "Amazon Web Services (AWS)",
+              date: "Issued Mar 2024",
+              color: "blue",
+            },
+            {
+              title: "Foundation of Generative AI",
+              issuer: "Udacity Nanodegree",
+              date: "Program Completion",
+              link: "https://www.udacity.com/certificate/e/df88db1a-b7bc-11ef-8b2e-8386e32aaca7",
+              color: "yellow",
+            },
+            {
+              title: "Scalable Machine Learning on Big Data using Apache Spark",
+              issuer: "IBM",
+              date: "Issued Dec 2023",
+              id: "TERQUHZM6RVL",
+              link: "https://www.coursera.org/account/accomplishments/verify/TERQUHZM6RVL",
+              color: "green",
+            },
+            {
+              title: "Databases and SQL for Data Science with Python",
+              issuer: "IBM",
+              date: "Issued Jul 2023",
+              id: "JESRQ532L4MR",
+              link: "https://www.coursera.org/account/accomplishments/certificate/JESRQ532L4MR",
+              color: "pink",
+            },
+            {
+              title: "Amazon ML Summer School (Top 200 India)",
+              issuer: "Amazon India",
+              date: "Issued Jul 2022",
+              color: "blue",
+            },
+            {
+              title: "Bertelsmann Next Generation Tech Booster Scholarship",
+              issuer: "Bertelsmann",
+              date: "Credential 2024 - 2025",
+              color: "yellow",
+            },
+            {
+              title: "Foundations of Prompt Engineering",
+              issuer: "Google",
+              date: "Issued Dec 2023",
+              color: "green",
+            },
+            {
+              title: "Crash Course on Python",
+              issuer: "Google Inc",
+              date: "Issued Dec 2021",
+              color: "pink",
+            },
+          ].map((cert, index) => {
+            const shadowColor =
+              cert.color === "pink"
+                ? "shadow-[3px_3px_0px_0px_#ff5c8d]"
+                : cert.color === "blue"
+                  ? "shadow-[3px_3px_0px_0px_#80dbff]"
+                  : cert.color === "yellow"
+                    ? "shadow-[3px_3px_0px_0px_#fff95f]"
+                    : "shadow-[3px_3px_0px_0px_#00FF6A]";
+            const shadowHover =
+              cert.color === "pink"
+                ? "hover:shadow-[5px_5px_0px_0px_#ff5c8d]"
+                : cert.color === "blue"
+                  ? "hover:shadow-[5px_5px_0px_0px_#80dbff]"
+                  : cert.color === "yellow"
+                    ? "hover:shadow-[5px_5px_0px_0px_#fff95f]"
+                    : "hover:shadow-[5px_5px_0px_0px_#00FF6A]";
+            return (
+              <div
+                key={index}
+                className={`bg-white border-2 border-slate-900 p-5 rounded-lg flex flex-col justify-between transition-all hover:translate-y-[-2px] ${shadowColor} ${shadowHover}`}
+              >
+                <div>
+                  <div className="flex justify-between items-start gap-2 mb-3">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-800 bg-slate-100 px-2 py-0.5 border-2 border-slate-900 rounded font-mono">
+                      {cert.issuer}
+                    </span>
+                    <span className="text-[9px] font-mono font-black text-slate-500 shrink-0">
+                      {cert.date}
+                    </span>
+                  </div>
+                  <h3 className="font-extrabold text-sm text-slate-900 leading-snug line-clamp-2 uppercase">
+                    {cert.title}
+                  </h3>
+                  {cert.id && (
+                    <p className="text-[10px] font-mono text-slate-500 mt-2 font-bold bg-slate-50 p-1 px-1.5 border border-slate-200 rounded w-fit">
+                      ID: {cert.id}
+                    </p>
+                  )}
+                </div>
+
+                {cert.link && (
+                  <div className="mt-4 pt-3 border-t border-slate-100">
+                    <a
+                      href={cert.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-black text-brainlabs-pink hover:text-slate-900 transition-colors hover:underline"
+                    >
+                      Verify Credential <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 7. Accolades Section */}
+      <section
+        id="accolades"
+        className="py-20 md:py-28 bg-white border-b-3 border-slate-900 relative overflow-hidden"
+      >
+        {/* Accent decorations */}
+        <div className="absolute top-24 left-10 w-24 h-24 bg-brainlabs-pink/5 rounded-full blur-2xl" />
+        <div className="absolute bottom-24 right-10 w-32 h-32 bg-brainlabs-blue/5 rounded-full blur-2xl" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs bg-blue-50 text-brainlabs-blue border-2 border-blue-200 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#ff5c8d]">
+              Proven Delivery Value
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
+              Testimonials &amp; Peer Shoutouts
+            </h2>
+            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+              Verbatim feedback logs extracted from peer reviews and shoutouts
+              during my engineering development.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {rawData.feedback_received?.slice(0, 9).map((fb, idx) => {
+              const friendlyAuthor = getFriendlyAuthor(fb.from);
+              return (
+                <div
+                  key={idx}
+                  className="bg-slate-50 border-2 border-slate-900 p-6 flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[4px_4px_0px_0px_#ff5c8d] hover:border-pink-300 transition-all relative rounded-lg"
+                >
+                  <div className="absolute top-4 right-4">
+                    <MessageSquare className="w-5 h-5 text-slate-400" />
+                  </div>
+
+                  <div>
+                    {/* Feedback category badge */}
+                    <span className="inline-block text-[9px] uppercase font-black tracking-wider text-brainlabs-pink bg-pink-50 border-2 border-slate-900 px-2 py-0.5 rounded-md mb-4 font-black">
+                      {fb.source || "Public Shoutout"}
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic mb-6 font-bold">
+                      &quot;{fb.text}&quot;
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t-2 border-slate-200 flex items-center justify-between">
+                    <div>
+                      <h4 className="font-extrabold text-xs sm:text-sm text-slate-900">
+                        {friendlyAuthor.name}
+                      </h4>
+                      <p className="text-[10px] text-slate-500 font-black font-mono mt-0.5">
+                        {friendlyAuthor.role}
+                      </p>
+                    </div>
+                    {/* Timestamp */}
+                    <span className="text-[9px] font-mono text-slate-500 font-black">
+                      {new Date(fb.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Call to Action / Footer */}
+      <footer className="bg-slate-50 text-slate-700 border-t-3 border-slate-900 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-12 gap-8 border-b-2 border-slate-200 pb-12">
+          <div className="md:col-span-5 flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-white border-2 border-slate-900 rounded-lg flex items-center justify-center shadow-[1.5px_1.5px_0px_0px_#ff5c8d]">
+                <span className="text-brainlabs-pink font-extrabold text-xl font-mono">
+                  A
+                </span>
+              </div>
+              <h3 className="font-black text-base sm:text-lg text-slate-900 tracking-tight uppercase">
+                Aryaroop Majumder
+              </h3>
+            </div>
+            <p className="text-slate-700 text-xs sm:text-sm leading-relaxed max-w-sm font-black">
+              Applying the scientific Test and Earn methodology across
+              high-throughput machine learning pipelines, GenAI applications,
+              and RAG search indexers.
+            </p>
+          </div>
+
+          <div className="md:col-span-3">
+            <h4 className="font-bold text-xs uppercase tracking-widest text-slate-400 mb-4">
+              Practice Focus
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-slate-600 font-black">
+              <li>• Semantic AI &amp; SEO</li>
+              <li>• Bayesian MMM modeling</li>
+              <li>• LangGraph &amp; agentic frameworks</li>
+              <li>• Cloud Data Pipelines</li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-4 flex flex-col gap-4">
+            <h4 className="font-bold text-xs uppercase tracking-widest text-slate-400">
+              Engineering Consults &amp; Projects
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-600 font-black">
+              Reach out directly for architectural consults, pipeline reviews,
+              or technical pitches.
+            </p>
+            <div className="flex flex-col gap-2 font-mono text-xs text-slate-700 bg-white border-2 border-slate-900 p-3 rounded-md font-bold">
+              <p>📍 Location: Bengaluru, Karnataka, India</p>
+              <p>
+                ✉️ Email:{" "}
+                <a
+                  href="mailto:aryaroop04@gmail.com"
+                  className="hover:text-brainlabs-pink hover:underline"
+                >
+                  aryaroop04@gmail.com
+                </a>
+              </p>
+              <p>📞 Phone: +91 97848 07414</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Copy / Fine-print */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-bold">
+          <p>© 2020-2026 Aryaroop Majumder. All Rights Reserved.</p>
+          <div className="flex gap-4">
+            <a
+              href="https://github.com/FiNiX-GaMmA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/aryaroop-majumder-a779691bb"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://aryaroop04.medium.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-brainlabs-pink transition-colors"
+            >
+              Medium
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
