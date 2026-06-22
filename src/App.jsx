@@ -98,6 +98,24 @@ export default function App() {
       highlight: "Stateless multi-provider AI backend",
     },
     {
+      id: "contextual-rag",
+      title: "Hybrid Contextual RAG Chatbot",
+      category: "GenAI / RAG",
+      desc: "A production-style RAG application with FastAPI endpoints. Combines dense search (Qdrant) and sparse search (BM25) with Reciprocal Rank Fusion (RRF), LLM reranking, and neighboring chunk expansion for grounded, hallucination-free Q&A.",
+      tech: ["FastAPI", "Qdrant", "BM25", "RRF", "Reranker", "Docker"],
+      github: "https://github.com/FiNiX-GaMmA/contextual-rag-chatbot",
+      highlight: "Dense & sparse hybrid search with reranking",
+    },
+    {
+      id: "llama2-chatbot",
+      title: "Opensource LLM Chatbot",
+      category: "LLM App / Chatbot",
+      desc: "A conversational chatbot interface built with Streamlit and optimized for locally-run open-source LLMs, particularly Llama 2. Fine-tuned with localized parameters to handle direct instruction-following prompts.",
+      tech: ["Llama 2", "Streamlit", "Hugging Face", "Quantization", "Python"],
+      github: "https://github.com/FiNiX-GaMmA/llama2_chatbot",
+      highlight: "Custom fine-tuning parameter controls",
+    },
+    {
       id: "firetv-helper",
       title: "Fire TV Customizer & Vanilla Launcher",
       category: "DevOps / Android OS",
@@ -112,7 +130,7 @@ export default function App() {
       category: "GenAI / LLM App",
       desc: "Developed an innovative NL-to-SQL chatbot enabling non-SQL professionals to interact with and draw insights from databases. Leveraged open-source models like Llama 3.1, Google Flan T5, and Starcoder.",
       tech: ["Llama 3.1", "Flan-T5", "Streamlit", "Flask API", "Docker"],
-      github: "https://github.com/FiNiX-GaMmA",
+      proprietary: true,
       highlight: "Built for non-SQL database users",
     },
     {
@@ -145,7 +163,7 @@ export default function App() {
         "ArviZ",
         "Stochastic Volatility",
       ],
-      github: "https://github.com/FiNiX-GaMmA",
+      proprietary: true,
       highlight: "Statistical Marketing Mix Modeling",
     },
     {
@@ -169,7 +187,7 @@ export default function App() {
         "Google Sheets",
         "Cosine Similarity",
       ],
-      github: "https://github.com/FiNiX-GaMmA/Seo_suite",
+      proprietary: true,
       highlight: "Semantic text matching dashboard",
     },
     {
