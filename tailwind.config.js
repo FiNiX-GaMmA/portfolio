@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        brainlabs: {
+        portfolio: {
           pink: "#ffdd33",
           blue: "#80dbff",
           dark: "#1b1b1b",

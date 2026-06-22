@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply bg-brainlabs-cream text-brainlabs-dark font-sans;
+        @apply bg-portfolio-cream text-portfolio-dark font-sans;
     }
 }
 

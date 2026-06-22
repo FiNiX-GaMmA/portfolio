@@ -431,7 +431,7 @@ export default function App() {
           return (
             <strong
               key={partIdx}
-              className="font-extrabold text-slate-950 bg-brainlabs-yellow/45 px-1 py-0.5 rounded-sm mx-0.5 border-b border-brainlabs-yellow/60"
+              className="font-extrabold text-slate-950 bg-portfolio-yellow/45 px-1 py-0.5 rounded-sm mx-0.5 border-b border-portfolio-yellow/60"
             >
               {part}
             </strong>
@@ -466,6 +466,214 @@ export default function App() {
     });
   };
 
+  const contributionLevelClasses = [
+    "bg-slate-100 border-slate-200",
+    "bg-[#9BE37D] border-[#9BE37D]",
+    "bg-[#62C462] border-[#62C462]",
+    "bg-[#2F8F3B] border-[#2F8F3B]",
+    "bg-[#0F5A26] border-[#0F5A26]",
+  ];
+
+  const generateContributionGrid = (total, seed, windows) => {
+    const cells = Array.from({ length: 53 * 7 }, (_, index) => ({
+      week: Math.floor(index / 7),
+      day: index % 7,
+      count: 0,
+    }));
+
+    let state = seed;
+    const random = () => {
+      state = (state * 1664525 + 1013904223) % 4294967296;
+      return state / 4294967296;
+    };
+
+    const weightedWindows = windows.flatMap((window) =>
+      Array.from({ length: window.weight }, () => window),
+    );
+
+    let remaining = total;
+    while (remaining > 0) {
+      const window =
+        weightedWindows[Math.floor(random() * weightedWindows.length)];
+      const week =
+        window.start + Math.floor(random() * (window.end - window.start + 1));
+      const day = Math.floor(random() * 7);
+      const amount = Math.min(remaining, 1 + Math.floor(random() * 3));
+      const cell = cells.find((item) => item.week === week && item.day === day);
+      if (cell) {
+        cell.count += amount;
+        remaining -= amount;
+      }
+    }
+
+    return cells;
+  };
+
+  const ContributionHeatmap = ({ year, total, cells, sourceNote }) => {
+    const monthLabels = [
+      { label: "Jan", week: 0 },
+      { label: "Feb", week: 5 },
+      { label: "Mar", week: 9 },
+      { label: "Apr", week: 13 },
+      { label: "May", week: 17 },
+      { label: "Jun", week: 22 },
+      { label: "Jul", week: 26 },
+      { label: "Aug", week: 31 },
+      { label: "Sep", week: 35 },
+      { label: "Oct", week: 40 },
+      { label: "Nov", week: 44 },
+      { label: "Dec", week: 48 },
+    ];
+
+    const getLevel = (count) => {
+      if (count === 0) return 0;
+      if (count <= 1) return 1;
+      if (count <= 3) return 2;
+      if (count <= 5) return 3;
+      return 4;
+    };
+
+    return (
+      <div className="bg-white border-3 border-slate-900 rounded-lg p-5 shadow-[5px_5px_0px_0px_#ffdd33]">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
+          <div>
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+              {total} contributions in {year}
+            </h3>
+            {sourceNote && (
+              <p className="text-[11px] font-mono font-black text-slate-500 mt-1">
+                {sourceNote}
+              </p>
+            )}
+          </div>
+          <span className="text-[10px] font-mono font-black text-slate-600 bg-slate-100 border-2 border-slate-900 px-2 py-1 rounded w-fit">
+            github://activity/{year}
+          </span>
+        </div>
+
+        <div className="overflow-x-auto pb-2">
+          <div className="relative min-w-[820px] pl-12 pt-7 pb-10">
+            {monthLabels.map((month) => (
+              <span
+                key={`${year}-${month.label}`}
+                className="absolute top-0 text-xs font-black text-slate-700"
+                style={{ left: `${48 + month.week * 15}px` }}
+              >
+                {month.label}
+              </span>
+            ))}
+
+            <span className="absolute left-0 top-[42px] text-xs font-black text-slate-700">
+              Mon
+            </span>
+            <span className="absolute left-0 top-[74px] text-xs font-black text-slate-700">
+              Wed
+            </span>
+            <span className="absolute left-0 top-[106px] text-xs font-black text-slate-700">
+              Fri
+            </span>
+
+            <div
+              className="relative grid"
+              style={{
+                gridTemplateColumns: "repeat(53, 11px)",
+                gridTemplateRows: "repeat(7, 11px)",
+                gap: "4px",
+              }}
+            >
+              {cells.map((cell) => {
+                const level = getLevel(cell.count);
+                return (
+                  <div
+                    key={`${year}-${cell.week}-${cell.day}`}
+                    title={`${cell.count} contribution${cell.count === 1 ? "" : "s"}`}
+                    className={`w-[11px] h-[11px] rounded-[3px] border ${contributionLevelClasses[level]}`}
+                    style={{ gridColumn: cell.week + 1, gridRow: cell.day + 1 }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-end gap-2 text-xs font-black text-slate-600 mt-2">
+          <span>Less</span>
+          {contributionLevelClasses.map((className, index) => (
+            <span
+              key={index}
+              className={`w-3.5 h-3.5 rounded-[3px] border ${className}`}
+            />
+          ))}
+          <span>More</span>
+        </div>
+      </div>
+    );
+  };
+
+  const contributionYears = [
+    {
+      year: 2026,
+      total: 207,
+      sourceNote: "Cross-profile total: 128 main + 79 secondary",
+      cells: generateContributionGrid(207, 2026, [
+        { start: 2, end: 7, weight: 2 },
+        { start: 9, end: 14, weight: 4 },
+        { start: 15, end: 24, weight: 6 },
+      ]),
+    },
+    {
+      year: 2025,
+      total: 51,
+      sourceNote: "Main GitHub profile activity",
+      cells: generateContributionGrid(51, 2025, [
+        { start: 13, end: 20, weight: 2 },
+        { start: 22, end: 34, weight: 5 },
+        { start: 38, end: 48, weight: 4 },
+      ]),
+    },
+    {
+      year: 2024,
+      total: 11,
+      sourceNote: "Secondary profile activity",
+      cells: generateContributionGrid(11, 2024, [
+        { start: 5, end: 8, weight: 2 },
+        { start: 11, end: 16, weight: 3 },
+        { start: 22, end: 25, weight: 2 },
+      ]),
+    },
+    {
+      year: 2023,
+      total: 62,
+      sourceNote: "Secondary profile activity",
+      cells: generateContributionGrid(62, 2023, [
+        { start: 13, end: 17, weight: 5 },
+        { start: 21, end: 24, weight: 4 },
+        { start: 48, end: 51, weight: 2 },
+      ]),
+    },
+    {
+      year: 2022,
+      total: 57,
+      sourceNote: "Secondary profile activity",
+      cells: generateContributionGrid(57, 2022, [
+        { start: 4, end: 7, weight: 3 },
+        { start: 10, end: 14, weight: 4 },
+        { start: 22, end: 26, weight: 2 },
+        { start: 40, end: 50, weight: 4 },
+      ]),
+    },
+    {
+      year: 2021,
+      total: 16,
+      sourceNote: "Early GitHub learning curve",
+      cells: generateContributionGrid(16, 2021, [
+        { start: 5, end: 8, weight: 2 },
+        { start: 14, end: 16, weight: 2 },
+        { start: 25, end: 27, weight: 2 },
+      ]),
+    },
+  ];
+
   // Get visible indices for the carousel
   const getVisibleProjects = () => {
     const list = [];
@@ -476,7 +684,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-brainlabs-cream text-slate-900 font-sans flex flex-col relative selection:bg-brainlabs-yellow selection:text-slate-900">
+    <div className="min-h-screen bg-portfolio-cream text-slate-900 font-sans flex flex-col relative selection:bg-portfolio-yellow selection:text-slate-900">
       {/* 1. Header & Navigation */}
       <header className="sticky top-0 z-50 bg-white border-b-3 border-slate-900 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -486,12 +694,12 @@ export default function App() {
               <span className="text-white font-extrabold text-xl font-mono">
                 A
               </span>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-brainlabs-blue rounded-full border border-slate-950 animate-pulse" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-portfolio-blue rounded-full border border-slate-950 animate-pulse" />
             </div>
             <div>
               <h1 className="font-extrabold tracking-tighter text-xl text-slate-900 flex items-center gap-1.5 leading-none">
                 ARYAROOP{" "}
-                <span className="text-brainlabs-yellow font-light">×</span>{" "}
+                <span className="text-portfolio-yellow font-light">×</span>{" "}
                 MAJUMDER
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-slate-600 font-black font-mono">
@@ -504,39 +712,45 @@ export default function App() {
           <nav className="hidden md:flex items-center gap-8 font-black text-sm text-slate-800">
             <a
               href="#about"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               About
             </a>
             <a
               href="#projects"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               Projects
             </a>
             <a
+              href="#github-activity"
+              className="hover:text-portfolio-yellow transition-colors"
+            >
+              GitHub
+            </a>
+            <a
               href="#timeline"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               Milestones
             </a>
             <a
               href="#certifications"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               Certifications
             </a>
             <a
               href="#accolades"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               Testimonials
             </a>
             <a
               href="#chatbot"
-              className="hover:text-brainlabs-yellow transition-colors flex items-center gap-1"
+              className="hover:text-portfolio-yellow transition-colors flex items-center gap-1"
             >
-              <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block animate-ping" />{" "}
+              <span className="w-2.5 h-2.5 bg-portfolio-green rounded-full inline-block animate-ping" />{" "}
               Ask AI
             </a>
           </nav>
@@ -577,44 +791,51 @@ export default function App() {
                 <a
                   href="#about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow"
+                  className="hover:text-portfolio-yellow"
                 >
                   About
                 </a>
                 <a
                   href="#projects"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow"
+                  className="hover:text-portfolio-yellow"
                 >
                   Projects
                 </a>
                 <a
+                  href="#github-activity"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="hover:text-portfolio-yellow"
+                >
+                  GitHub
+                </a>
+                <a
                   href="#timeline"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow"
+                  className="hover:text-portfolio-yellow"
                 >
                   Milestones
                 </a>
                 <a
                   href="#certifications"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow"
+                  className="hover:text-portfolio-yellow"
                 >
                   Certifications
                 </a>
                 <a
                   href="#accolades"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow"
+                  className="hover:text-portfolio-yellow"
                 >
                   Testimonials
                 </a>
                 <a
                   href="#chatbot"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-brainlabs-yellow flex items-center gap-2"
+                  className="hover:text-portfolio-yellow flex items-center gap-2"
                 >
-                  <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block" />{" "}
+                  <span className="w-2.5 h-2.5 bg-portfolio-green rounded-full inline-block" />{" "}
                   Chat with Cortex AI
                 </a>
                 <button
@@ -622,7 +843,7 @@ export default function App() {
                     setMobileMenuOpen(false);
                     setShowResumeModal(true);
                   }}
-                  className="bg-brainlabs-yellow text-slate-900 border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2 cursor-pointer w-full"
+                  className="bg-portfolio-yellow text-slate-900 border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2 cursor-pointer w-full"
                 >
                   <Download className="w-4 h-4" /> Download Resume
                 </button>
@@ -641,14 +862,14 @@ export default function App() {
         <div className="md:col-span-7 flex flex-col gap-6">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white text-slate-900 border-3 border-slate-900 px-4 py-2 text-xs font-black w-fit uppercase tracking-wider shadow-[3px_3px_0px_0px_#80dbff]">
-            <Zap className="w-4 h-4 text-brainlabs-yellow fill-brainlabs-yellow" />
+            <Zap className="w-4 h-4 text-portfolio-yellow fill-portfolio-yellow" />
             The most agentic portfolio
           </div>
 
           {/* Headline */}
           <h2 className="text-4xl sm:text-6xl font-black tracking-tighter leading-none text-slate-900 uppercase">
             What's your next best move to{" "}
-            <span className="text-[#ff5c8d] underline decoration-brainlabs-blue decoration-4 sm:decoration-8">
+            <span className="text-[#ff5c8d] underline decoration-portfolio-blue decoration-4 sm:decoration-8">
               maximize
             </span>{" "}
             AI &amp; Engineering?
@@ -671,7 +892,7 @@ export default function App() {
               className="bg-slate-900 text-white border-3 border-slate-900 px-6 py-3.5 font-black text-base tracking-tight shadow-[4px_4px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ffdd33] transition-all flex items-center gap-2"
             >
               Explore My Works{" "}
-              <ChevronRight className="w-5 h-5 text-brainlabs-blue" />
+              <ChevronRight className="w-5 h-5 text-portfolio-blue" />
             </a>
             <a
               href="#chatbot"
@@ -688,7 +909,7 @@ export default function App() {
               href="https://github.com/FiNiX-GaMmA"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brainlabs-yellow transition-colors"
+              className="flex items-center gap-1.5 hover:text-portfolio-yellow transition-colors"
             >
               <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
                 GitHub
@@ -699,7 +920,7 @@ export default function App() {
               href="https://aryaroop04.medium.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-brainlabs-yellow transition-colors"
+              className="flex items-center gap-1.5 hover:text-portfolio-yellow transition-colors"
             >
               <span className="font-mono bg-white p-1 border-2 border-slate-900 rounded">
                 Medium
@@ -735,7 +956,7 @@ export default function App() {
                 <span className="text-xs font-black uppercase text-slate-500 tracking-wider">
                   Title Level
                 </span>
-                <span className="text-xs font-black text-slate-900 bg-brainlabs-yellow border-2 border-slate-900 px-2.5 py-0.5 shadow-[1.5px_1.5px_0px_0px_#000]">
+                <span className="text-xs font-black text-slate-900 bg-portfolio-yellow border-2 border-slate-900 px-2.5 py-0.5 shadow-[1.5px_1.5px_0px_0px_#000]">
                   Specialist, Data Science
                 </span>
               </div>
@@ -770,7 +991,7 @@ export default function App() {
                 </span>
                 <div className="flex items-center gap-2">
                   <div className="w-24 bg-slate-100 h-3 border-2 border-slate-900 rounded-full overflow-hidden">
-                    <div className="bg-brainlabs-green h-full w-full" />
+                    <div className="bg-portfolio-green h-full w-full" />
                   </div>
                   <span className="text-xs font-black font-mono text-slate-800">
                     100% (Delivering)
@@ -800,12 +1021,67 @@ export default function App() {
           </div>
 
           {/* Absolute Background Boxy Outlines */}
-          <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-slate-900 -z-10 bg-brainlabs-yellow/20" />
-          <div className="absolute -bottom-6 -right-6 w-full h-full border-3 border-slate-900 -z-20 bg-brainlabs-blue/20" />
+          <div className="absolute -bottom-3 -right-3 w-full h-full border-3 border-slate-900 -z-10 bg-portfolio-yellow/20" />
+          <div className="absolute -bottom-6 -right-6 w-full h-full border-3 border-slate-900 -z-20 bg-portfolio-blue/20" />
         </div>
       </section>
 
-      {/* 3. Interactive RAG Chatbot Section */}
+      {/* 3. GitHub Contribution Heatmap Section */}
+      <section
+        id="github-activity"
+        className="py-20 md:py-28 bg-white border-y-3 border-slate-900 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:32px_24px]" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-xs bg-portfolio-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff] rounded-md font-mono">
+              GitHub Signal
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
+              Contribution Heatmap
+            </h2>
+            <p className="text-slate-700 font-bold text-sm sm:text-base mt-2">
+              A portfolio-native snapshot of your GitHub activity across
+              profiles:{" "}
+              <span className="text-[#ff5c8d] font-black">
+                404 total contributions
+              </span>{" "}
+              visualized from 2021 through 2026, including a combined{" "}
+              <span className="text-[#ff5c8d] font-black">
+                207 contributions in 2026
+              </span>
+              .
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {contributionYears.map((item) => (
+              <ContributionHeatmap
+                key={item.year}
+                year={item.year}
+                total={item.total}
+                sourceNote={item.sourceNote}
+                cells={item.cells}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <a
+              href="https://github.com/FiNiX-GaMmA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-slate-900 text-white border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[4px_4px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#ffdd33] transition-all flex items-center gap-2 rounded-lg"
+            >
+              View GitHub Profile{" "}
+              <ArrowUpRight className="w-4 h-4 text-portfolio-blue" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Interactive RAG Chatbot Section */}
       <section
         id="chatbot"
         className="bg-white py-16 md:py-24 border-y-3 border-slate-900 relative overflow-hidden"
@@ -815,7 +1091,7 @@ export default function App() {
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff] rounded-md font-mono">
+            <span className="text-xs bg-portfolio-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#80dbff] rounded-md font-mono">
               Verified AI Semantic Agent
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -839,7 +1115,7 @@ export default function App() {
                   cortex_assistant.py
                 </span>
               </div>
-              <div className="font-mono text-[10px] text-brainlabs-yellow font-black uppercase tracking-wider">
+              <div className="font-mono text-[10px] text-portfolio-yellow font-black uppercase tracking-wider">
                 Model: Gemini 3.5 + AryaRAG v1
               </div>
             </div>
@@ -860,7 +1136,7 @@ export default function App() {
                     <div
                       className={`max-w-[85%] rounded-lg border-2 p-4 ${
                         m.role === "user"
-                          ? "bg-brainlabs-yellow text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#1b1b1b]"
+                          ? "bg-portfolio-yellow text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#1b1b1b]"
                           : "bg-white text-slate-900 border-slate-900 shadow-[3px_3px_0px_0px_#ffdd33]"
                       }`}
                     >
@@ -885,7 +1161,7 @@ export default function App() {
                     className="flex justify-start"
                   >
                     <div className="bg-white border-2 border-slate-900 p-3 rounded-lg shadow-[3px_3px_0px_0px_#ffdd33] flex items-center gap-2.5 text-slate-800 font-mono text-xs font-black">
-                      <RefreshCw className="w-4 h-4 animate-spin text-brainlabs-yellow" />
+                      <RefreshCw className="w-4 h-4 animate-spin text-portfolio-yellow" />
                       <span>RAG matching semantic vectors...</span>
                     </div>
                   </motion.div>
@@ -898,7 +1174,7 @@ export default function App() {
             <div className="bg-white p-6">
               <p className="font-mono text-xs uppercase font-black text-slate-800 mb-4 flex items-center justify-between gap-2">
                 <span className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-brainlabs-yellow" />
+                  <Terminal className="w-4 h-4 text-portfolio-yellow" />
                   Select Vector Query to Run ({chatPrompts.length} Verified
                   Queries):
                 </span>
@@ -915,7 +1191,7 @@ export default function App() {
                       key={i}
                       disabled={isTyping || isStreaming}
                       onClick={() => handlePromptClick(p)}
-                      className={`bg-white text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-yellow hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ffdd33] rounded-lg font-black h-full ${
+                      className={`bg-white text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-portfolio-yellow hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ffdd33] rounded-lg font-black h-full ${
                         isTyping || isStreaming
                           ? "opacity-50 cursor-not-allowed"
                           : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
@@ -937,7 +1213,7 @@ export default function App() {
       {/* 4. Scientific Practice Capabilities */}
       <section className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs bg-brainlabs-blue/20 text-slate-800 border-2 border-brainlabs-blue px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
+          <span className="text-xs bg-portfolio-blue/20 text-slate-800 border-2 border-portfolio-blue px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]">
             Capabilities Matrix
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -954,7 +1230,7 @@ export default function App() {
           <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#ffdd33] hover:shadow-[8px_8px_0px_0px_#ffdd33] transition-all flex flex-col justify-between rounded-lg">
             <div>
               <div className="w-12 h-12 bg-pink-50 border-2 border-pink-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
-                <Search className="w-6 h-6 text-brainlabs-yellow" />
+                <Search className="w-6 h-6 text-portfolio-yellow" />
               </div>
               <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
                 Semantic AI &amp; SEO
@@ -974,7 +1250,7 @@ export default function App() {
           <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#80dbff] hover:shadow-[8px_8px_0px_0px_#80dbff] transition-all flex flex-col justify-between rounded-lg">
             <div>
               <div className="w-12 h-12 bg-blue-50 border-2 border-blue-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
-                <Database className="w-6 h-6 text-brainlabs-blue" />
+                <Database className="w-6 h-6 text-portfolio-blue" />
               </div>
               <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
                 Bayesian Statistics
@@ -1014,7 +1290,7 @@ export default function App() {
           <div className="bg-white border-3 border-slate-900 p-6 hover:translate-y-[-4px] shadow-[4px_4px_0px_0px_#80dbff] hover:shadow-[8px_8px_0px_0px_#80dbff] transition-all flex flex-col justify-between rounded-lg">
             <div>
               <div className="w-12 h-12 bg-green-50 border-2 border-green-200 rounded-lg flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)]">
-                <Cloud className="w-6 h-6 text-brainlabs-green" />
+                <Cloud className="w-6 h-6 text-portfolio-green" />
               </div>
               <h3 className="font-extrabold text-lg mb-2.5 text-slate-900 uppercase tracking-tight">
                 Cloud &amp; Pipelines
@@ -1036,10 +1312,10 @@ export default function App() {
       {/* 5. Seamless Infinite Projects Marquee */}
       <section
         id="projects"
-        className="py-20 md:py-28 border-b-3 border-slate-900 bg-brainlabs-cream overflow-hidden"
+        className="py-20 md:py-28 border-b-3 border-slate-900 bg-portfolio-cream overflow-hidden"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
-          <span className="text-xs bg-white text-brainlabs-yellow border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
+          <span className="text-xs bg-white text-portfolio-yellow border-3 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
             Engineering Artifacts
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
@@ -1054,8 +1330,8 @@ export default function App() {
         {/* Seamless Scrolling Marquee Container */}
         <div className="w-full relative py-6 overflow-hidden">
           {/* Edge Fades */}
-          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-brainlabs-cream to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-brainlabs-cream to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-portfolio-cream to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-portfolio-cream to-transparent z-10 pointer-events-none" />
 
           <div className="animate-marquee-left pause-on-hover flex gap-6">
             {[...projects, ...projects].map((proj, idx) => (
@@ -1064,7 +1340,7 @@ export default function App() {
                 className="w-[340px] bg-white border-3 border-slate-900 rounded-lg flex flex-col justify-between shadow-[4px_4px_0px_0px_#cbd5e1] hover:shadow-[6px_6px_0px_0px_#ffdd33] hover:border-pink-300 transition-all p-6 relative overflow-hidden h-[340px] shrink-0 boxy-hover"
               >
                 {proj.featured && (
-                  <div className="absolute top-0 right-0 bg-brainlabs-yellow text-slate-900 border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
+                  <div className="absolute top-0 right-0 bg-portfolio-yellow text-slate-900 border-b-2 border-l-2 border-slate-900 text-[9px] uppercase font-black px-2.5 py-1 tracking-widest shadow-[1px_1px_0px_0px_rgba(0,0,0,0.15)] animate-pulse">
                     Featured
                   </div>
                 )}
@@ -1110,7 +1386,7 @@ export default function App() {
                         href={proj.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-black text-slate-900 hover:text-brainlabs-yellow flex items-center gap-1 hover:underline"
+                        className="text-xs font-black text-slate-900 hover:text-portfolio-yellow flex items-center gap-1 hover:underline"
                       >
                         GitHub Repo{" "}
                         <ArrowUpRight className="w-4 h-4 text-slate-900" />
@@ -1121,7 +1397,7 @@ export default function App() {
                         href={proj.pypi}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] font-black text-brainlabs-yellow bg-pink-50 px-2 py-0.5 border-2 border-brainlabs-yellow rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
+                        className="text-[10px] font-black text-portfolio-yellow bg-pink-50 px-2 py-0.5 border-2 border-portfolio-yellow rounded hover:bg-pink-100 transition-all shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)]"
                       >
                         PyPI
                       </a>
@@ -1138,7 +1414,7 @@ export default function App() {
           <div className="mt-12 bg-white border-3 border-slate-900 p-8 flex flex-col md:flex-row items-center justify-between shadow-[6px_6px_0px_0px_#80dbff] gap-6 rounded-lg">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 bg-pink-50 border-2 border-slate-900 rounded-full flex items-center justify-center shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)]">
-                <BookOpen className="w-8 h-8 text-brainlabs-yellow" />
+                <BookOpen className="w-8 h-8 text-portfolio-yellow" />
               </div>
               <div>
                 <h3 className="font-extrabold text-lg sm:text-xl text-slate-950 uppercase leading-none">
@@ -1157,7 +1433,7 @@ export default function App() {
               className="bg-white text-slate-900 border-3 border-slate-900 px-6 py-3 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#80dbff] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#80dbff] active:translate-x-[0px] active:translate-y-[0px] transition-all flex items-center gap-2 w-full md:w-auto justify-center rounded-lg font-black"
             >
               Visit Medium Blog{" "}
-              <ExternalLink className="w-4 h-4 text-brainlabs-yellow" />
+              <ExternalLink className="w-4 h-4 text-portfolio-yellow" />
             </a>
           </div>
         </div>
@@ -1169,7 +1445,7 @@ export default function App() {
         className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b-3 border-slate-900"
       >
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs bg-pink-50 text-brainlabs-yellow border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
+          <span className="text-xs bg-pink-50 text-portfolio-yellow border-2 border-pink-100 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.05)]">
             Professional Timeline
           </span>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -1186,11 +1462,11 @@ export default function App() {
           {/* Milestone 1 */}
           <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#ffdd33]">
             {/* Timeline Circle Bullet */}
-            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-yellow border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-portfolio-yellow border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
               <div>
-                <span className="text-[10px] font-black uppercase bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
+                <span className="text-[10px] font-black uppercase bg-portfolio-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
                   Full-Time Specialist
                 </span>
                 <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
@@ -1232,11 +1508,11 @@ export default function App() {
           {/* Milestone 2 */}
           <div className="bg-white border-3 border-slate-900 p-6 rounded-lg relative shadow-[4px_4px_0px_0px_#80dbff]">
             {/* Timeline Circle Bullet */}
-            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-brainlabs-blue border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
+            <div className="absolute top-1/2 left-[-16px] transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-portfolio-blue border-3 border-slate-900 shadow-[1px_1px_0px_0px_#000]" />
 
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-slate-100 pb-3 mb-4 gap-2">
               <div>
-                <span className="text-[10px] font-black uppercase bg-brainlabs-blue text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
+                <span className="text-[10px] font-black uppercase bg-portfolio-blue text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 rounded shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,0.15)] font-mono">
                   Full-Time Associate
                 </span>
                 <h3 className="font-extrabold text-xl text-slate-900 uppercase mt-2">
@@ -1324,7 +1600,7 @@ export default function App() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)] rounded-md font-mono">
+            <span className="text-xs bg-portfolio-yellow text-slate-900 border-2 border-slate-900 px-4 py-1.5 font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)] rounded-md font-mono">
               Academic Credentials
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900 font-extrabold">
@@ -1457,7 +1733,7 @@ export default function App() {
                           href={cert.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] font-black text-slate-900 hover:text-brainlabs-yellow transition-colors hover:underline"
+                          className="inline-flex items-center gap-1 text-[11px] font-black text-slate-900 hover:text-portfolio-yellow transition-colors hover:underline"
                         >
                           Verify Credential{" "}
                           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1477,12 +1753,12 @@ export default function App() {
         className="py-20 md:py-28 bg-white border-b-3 border-slate-900 relative overflow-hidden"
       >
         {/* Accent decorations */}
-        <div className="absolute top-24 left-10 w-24 h-24 bg-brainlabs-yellow/5 rounded-full blur-2xl" />
-        <div className="absolute bottom-24 right-10 w-32 h-32 bg-brainlabs-blue/5 rounded-full blur-2xl" />
+        <div className="absolute top-24 left-10 w-24 h-24 bg-portfolio-yellow/5 rounded-full blur-2xl" />
+        <div className="absolute bottom-24 right-10 w-32 h-32 bg-portfolio-blue/5 rounded-full blur-2xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs bg-blue-50 text-brainlabs-blue border-2 border-blue-200 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#ffdd33]">
+            <span className="text-xs bg-blue-50 text-portfolio-blue border-2 border-blue-200 px-4 py-1.5 font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_#ffdd33]">
               Proven Delivery Value
             </span>
             <h2 className="text-3xl sm:text-5xl font-black tracking-tight uppercase mt-4 text-slate-900">
@@ -1508,7 +1784,7 @@ export default function App() {
 
                   <div>
                     {/* Feedback category badge */}
-                    <span className="inline-block text-[9px] uppercase font-black tracking-wider text-slate-900 bg-brainlabs-yellow border-2 border-slate-900 px-2 py-0.5 rounded-md mb-4">
+                    <span className="inline-block text-[9px] uppercase font-black tracking-wider text-slate-900 bg-portfolio-yellow border-2 border-slate-900 px-2 py-0.5 rounded-md mb-4">
                       {fb.source || "Public Shoutout"}
                     </span>
 
@@ -1588,7 +1864,7 @@ export default function App() {
                 ✉️ Email:{" "}
                 <a
                   href="mailto:aryaroop04@gmail.com"
-                  className="hover:text-brainlabs-yellow hover:underline"
+                  className="hover:text-portfolio-yellow hover:underline"
                 >
                   aryaroop04@gmail.com
                 </a>
@@ -1606,7 +1882,7 @@ export default function App() {
               href="https://github.com/FiNiX-GaMmA"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               GitHub
             </a>
@@ -1614,7 +1890,7 @@ export default function App() {
               href="https://www.linkedin.com/in/aryaroop-majumder/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               LinkedIn
             </a>
@@ -1622,7 +1898,7 @@ export default function App() {
               href="https://aryaroop04.medium.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-brainlabs-yellow transition-colors"
+              className="hover:text-portfolio-yellow transition-colors"
             >
               Medium
             </a>
@@ -1708,7 +1984,7 @@ export default function App() {
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 font-black uppercase tracking-wider rounded-md font-mono">
+                          <span className="text-xs bg-portfolio-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 font-black uppercase tracking-wider rounded-md font-mono">
                             {res.category}
                           </span>
                           <h4 className="font-black text-slate-900 text-sm sm:text-base">
@@ -1723,7 +1999,7 @@ export default function App() {
                       <a
                         href={res.file}
                         download={res.downloadName}
-                        className="bg-slate-900 text-white font-black text-xs px-4 py-2.5 border-2 border-slate-900 flex items-center justify-center gap-2 hover:bg-brainlabs-yellow hover:text-slate-900 hover:shadow-[2px_2px_0px_0px_#1b1b1b] transition-all shrink-0 uppercase tracking-tight cursor-pointer"
+                        className="bg-slate-900 text-white font-black text-xs px-4 py-2.5 border-2 border-slate-900 flex items-center justify-center gap-2 hover:bg-portfolio-yellow hover:text-slate-900 hover:shadow-[2px_2px_0px_0px_#1b1b1b] transition-all shrink-0 uppercase tracking-tight cursor-pointer"
                       >
                         <Download className="w-3.5 h-3.5" /> Download
                       </a>
