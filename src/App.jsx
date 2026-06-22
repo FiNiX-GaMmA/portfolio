@@ -47,6 +47,7 @@ export default function App() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [currentPrompt, setCurrentPrompt] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
   const chatEndRef = useRef(null);
@@ -312,6 +313,36 @@ export default function App() {
       reply:
         "Here is verified peer feedback from Arya's development logs:\n\n* **Sushrut T. (Data Science Lead):** *'Arya successfully delivered the demo of our new AI SEO tool, SearchIQ, with great confidence. On the Halcyon project, Arya displayed excellent proactivity.'*\n* **Anusha K. (Senior Analyst):** *'Huge Shoutout to Arya for implementing the client-agnostic topical classification system... His ability to manage tasks significantly boosts overall team velocity.'*\n* **Tushar P. (DevOps & Infrastructure Lead):** *'Arya brings infectious energy and an excellent, scalable perspective... He excels at developing automated, long-term solutions for complex data pipelines.'*\n* **Yash W. (Product Associate):** *'Thank you, Arya, for the comprehensive walkthrough of the LEGO use case and for articulating the concepts so clearly.'*",
     },
+    {
+      q: "Describe Arya's expertise as a GenAI Specialist",
+      id: "genai_specialist",
+      reply:
+        "Arya's **Generative AI Specialist** role combines industry-level consulting with cutting-edge engineering:\n\n* **Fortune 500 Product-Tagging:** Built an automated product-tagging engine for a global consumer products client by fusing image signals, web scraping, prompt engineering, and classification rules.\n* **SEO AI Suite:** Shipped an AI SEO tool on GCP integrating RAG workflows, embedding clustering, and topical analysis, slashing research turnaround time by **85%**.\n* **Structured Data Access:** Developed a natural language interface translating complex, ambiguous user queries into precise SQL statements using models like Llama 3.1 and StarCoder.",
+    },
+    {
+      q: "What is Arya's LLM engineering experience?",
+      id: "llm_engineer",
+      reply:
+        "Arya has extensive experience designing and deploying **Large Language Model (LLM)** architectures:\n\n* **Advanced Retrieval Patterns:** Solely built a hybrid contextual RAG application with dense search (Qdrant), sparse search (BM25), reciprocal rank fusion (RRF), LLM reranking, and conversational context enrichment.\n* **Grounding & Validation:** Designed evaluation checks to measure context relevancy, hallucination risks, and answer correctness to ensure high-fidelity responses with clear citations.\n* **Quantization & Efficiency:** Optimized hosting costs, model selection, and search infrastructures to reduce enterprise platform costs from $500+ down to $100-$150 for hundreds of active users.",
+    },
+    {
+      q: "Detail Arya's experience in Credit Model development",
+      id: "credit_model",
+      reply:
+        "Arya applies rigorous, transferable ML engineering principles to **Credit Model Development & Validation**:\n\n* **Mathematical & Statistical Rigor:** Deeply familiar with classification algorithms, scorecard-style models, and probability calibrations (Logistic Regression, Decision Trees).\n* **Model Validation Metrics:** Proficient in computing model evaluation metrics including Area Under the Curve (AUC-ROC), Kolmogorov-Smirnov (KS) statistic, Gini coefficient, Confusion Matrix, and PSI.\n* **Population Stability Index (PSI):** Experienced in measuring input data drift and evaluating performance stability across historical datasets to detect model deterioration.",
+    },
+    {
+      q: "How did Arya optimize big data pipelines?",
+      id: "pyspark_pipeline",
+      reply:
+        "As an Associate ML Engineer at Prescience, Arya optimized enterprise big data workloads for Amazon:\n\n* **AWS Glue DPU Optimization:** Tuned DPU execution parameters and resource management, boosting data-heavy processing performance by **35%** and cutting AWS platform costs by **50%**.\n* **Pyspark ETL Workflows:** Developed robust PySpark pipelines for schema normalization, cleaning, and preparation of extremely large datasets.\n* **Data Quality Framework:** Built automated validation systems resolving **99.99%** of data quality issues prior to model ingestion.",
+    },
+    {
+      q: "Detail Arya's expertise in Agentic AI and MCP",
+      id: "agentic_mcp",
+      reply:
+        "Arya is at the absolute forefront of **Agentic AI** and Anthropic's **Model Context Protocol (MCP)**:\n\n* **Model Context Protocol:** Certified in MCP and Claude 101, designing server/client connectors to securely expose backend tools and filesystem contexts to LLM agents.\n* **Published Tooling:** Developed and published `yobitsugi` on PyPI—an interactive security scanner and LLM remediation pipeline that automates deterministic codebase scans and incremental repair loops.\n* **Orchestration Frameworks:** Implemented multi-agent orchestrations and stateful workflows using LangGraph and Airflow to manage long-running backend decision processes.",
+    },
   ];
 
   const handlePromptClick = (prompt) => {
@@ -494,13 +525,12 @@ export default function App() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <a
-              href="./Aryaroop_Majumder_ATS_Resume.pdf"
-              download="Aryaroop_Majumder_Resume.pdf"
-              className="bg-white text-slate-900 border-3 border-slate-900 px-5 py-2 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ffdd33] transition-all flex items-center gap-2"
+            <button
+              onClick={() => setShowResumeModal(true)}
+              className="bg-white text-slate-900 border-3 border-slate-900 px-5 py-2 font-black text-sm tracking-tight shadow-[3px_3px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#ffdd33] transition-all flex items-center gap-2 cursor-pointer"
             >
               <Download className="w-4 h-4 text-slate-900" /> Download Resume
-            </a>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -569,13 +599,15 @@ export default function App() {
                   <span className="w-2.5 h-2.5 bg-brainlabs-green rounded-full inline-block" />{" "}
                   Chat with Cortex AI
                 </a>
-                <a
-                  href="./Aryaroop_Majumder_ATS_Resume.pdf"
-                  download="Aryaroop_Majumder_Resume.pdf"
-                  className="bg-brainlabs-yellow text-slate-900 border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2"
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setShowResumeModal(true);
+                  }}
+                  className="bg-brainlabs-yellow text-slate-900 border-3 border-slate-900 p-3 text-center font-black flex items-center justify-center gap-2 cursor-pointer w-full"
                 >
                   <Download className="w-4 h-4" /> Download Resume
-                </a>
+                </button>
               </div>
             </motion.div>
           )}
@@ -846,29 +878,38 @@ export default function App() {
 
             {/* Select Prompt Panel - High contrast light theme */}
             <div className="bg-white p-6">
-              <p className="font-mono text-xs uppercase font-black text-slate-800 mb-4 flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-brainlabs-yellow" />
-                Select Vector Query to Run:
+              <p className="font-mono text-xs uppercase font-black text-slate-800 mb-4 flex items-center justify-between gap-2">
+                <span className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-brainlabs-yellow" />
+                  Select Vector Query to Run ({chatPrompts.length} Verified
+                  Queries):
+                </span>
+                <span className="text-[10px] text-slate-400 font-mono normal-case hidden sm:inline-block">
+                  Scroll for more ↓
+                </span>
               </p>
 
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {chatPrompts.map((p, i) => (
-                  <button
-                    key={i}
-                    disabled={isTyping || isStreaming}
-                    onClick={() => handlePromptClick(p)}
-                    className={`bg-slate-50 text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-yellow hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ffdd33] rounded-lg font-black ${
-                      isTyping || isStreaming
-                        ? "opacity-50 cursor-not-allowed"
-                        : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
-                    }`}
-                  >
-                    <span className="transition-colors pr-2 leading-snug text-slate-900">
-                      {p.q}
-                    </span>
-                    <Play className="w-3.5 h-3.5 text-slate-900 group-hover:text-[#ff5c8d] transition-all shrink-0 fill-slate-900 group-hover:fill-[#ff5c8d]" />
-                  </button>
-                ))}
+              {/* Scrollable Container with Neo-Brutalist scrollbars */}
+              <div className="max-h-60 overflow-y-auto pr-1.5 border-3 border-slate-900 p-3 bg-slate-50">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {chatPrompts.map((p, i) => (
+                    <button
+                      key={i}
+                      disabled={isTyping || isStreaming}
+                      onClick={() => handlePromptClick(p)}
+                      className={`bg-white text-left text-xs font-mono text-slate-900 border-2 border-slate-900 p-3.5 transition-all flex items-center justify-between group hover:border-brainlabs-yellow hover:bg-pink-50 hover:translate-y-[-2px] hover:shadow-[3px_3px_0px_0px_#ffdd33] rounded-lg font-black h-full ${
+                        isTyping || isStreaming
+                          ? "opacity-50 cursor-not-allowed"
+                          : "cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,0.15)]"
+                      }`}
+                    >
+                      <span className="transition-colors pr-2 leading-snug text-slate-900">
+                        {p.q}
+                      </span>
+                      <Play className="w-3.5 h-3.5 text-slate-900 group-hover:text-[#ff5c8d] transition-all shrink-0 fill-slate-900 group-hover:fill-[#ff5c8d]" />
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -1570,6 +1611,122 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Resume Category Download Modal */}
+      <AnimatePresence>
+        {showResumeModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowResumeModal(false)}
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-white border-4 border-slate-900 shadow-[8px_8px_0px_0px_#ffdd33] w-full max-w-2xl relative z-10 overflow-hidden rounded-none"
+            >
+              {/* Modal Header */}
+              <div className="bg-slate-50 border-b-4 border-slate-900 px-6 py-4 flex items-center justify-between">
+                <h3 className="font-black text-xl sm:text-2xl uppercase tracking-tight text-slate-900 flex items-center gap-2">
+                  <Download className="w-5 h-5 text-[#ff5c8d] stroke-[3px]" />
+                  Select Resume Version
+                </h3>
+                <button
+                  onClick={() => setShowResumeModal(false)}
+                  className="border-3 border-slate-900 p-1.5 bg-white hover:bg-[#ff5c8d] transition-colors rounded-none cursor-pointer"
+                >
+                  <X className="w-5 h-5 text-slate-900" />
+                </button>
+              </div>
+
+              {/* Modal Body */}
+              <div className="p-6 max-h-[65vh] overflow-y-auto space-y-4 bg-slate-50">
+                <p className="text-slate-700 font-bold text-sm">
+                  Arya's expertise spans multiple core AI/ML disciplines. Choose
+                  the targeted resume that aligns with your vacancy:
+                </p>
+
+                <div className="grid gap-4">
+                  {[
+                    {
+                      category: "GenAI",
+                      title: "Generative AI Specialist",
+                      desc: "Focuses on building production-grade Generative AI products, multimodal product-tagging, SEO content intelligence automation, and marketing mix modeling (PyMC). Highly specialized in designing custom agentic workflows.",
+                      file: "./Majumder_Aryaroop_21062026.pdf",
+                      downloadName: "Aryaroop_Majumder_GenAI_Resume.pdf",
+                    },
+                    {
+                      category: "LLM Engineer",
+                      title: "Large Language Model Engineer",
+                      desc: "Focuses on advanced LLM applications, RAG pipelines, Pinecone/FAISS/Qdrant vector stores, quantized models, and LLM evaluation. Expert in retrieval optimization, chunking, and metadata tagging.",
+                      file: "./Aryaroop_Majumder_GenAI_LLM_Engineer_Resume.pdf",
+                      downloadName: "Aryaroop_Majumder_LLM_Engineer_Resume.pdf",
+                    },
+                    {
+                      category: "ML Engineer",
+                      title: "Machine Learning / Credit Model Engineer",
+                      desc: "Focuses on model development, evaluation (AUC/ROC, PSI/stability, back-testing), PySpark ETL, Amazon big data production pipelines (AWS Glue/Lambda/S3), and statistical scoring.",
+                      file: "./Aryaroop_Majumder_Credit_Model_Development_Resume.pdf",
+                      downloadName: "Aryaroop_Majumder_ML_Engineer_Resume.pdf",
+                    },
+                    {
+                      category: "AI Engineer",
+                      title: "AI & GenAI Backend Engineer",
+                      desc: "Focuses on AI-powered microservices, FastAPI/Flask REST APIs, Docker containerization, CI/CD, Model Context Protocol (MCP), agent-based components, and cloud architectures (GCP/AWS/Azure).",
+                      file: "./Aryaroop_Majumder_GenAI_Backend_AI_Engineer_Resume.pdf",
+                      downloadName: "Aryaroop_Majumder_AI_Engineer_Resume.pdf",
+                    },
+                  ].map((res, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white border-3 border-slate-900 p-4 shadow-[4px_4px_0px_0px_#1b1b1b] hover:shadow-[6px_6px_0px_0px_#ffdd33] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                    >
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs bg-brainlabs-yellow text-slate-900 border-2 border-slate-900 px-2.5 py-0.5 font-black uppercase tracking-wider rounded-md font-mono">
+                            {res.category}
+                          </span>
+                          <h4 className="font-black text-slate-900 text-sm sm:text-base">
+                            {res.title}
+                          </h4>
+                        </div>
+                        <p className="text-xs text-slate-600 font-bold leading-relaxed">
+                          {res.desc}
+                        </p>
+                      </div>
+
+                      <a
+                        href={res.file}
+                        download={res.downloadName}
+                        className="bg-slate-900 text-white font-black text-xs px-4 py-2.5 border-2 border-slate-900 flex items-center justify-center gap-2 hover:bg-brainlabs-yellow hover:text-slate-900 hover:shadow-[2px_2px_0px_0px_#1b1b1b] transition-all shrink-0 uppercase tracking-tight cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" /> Download
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="bg-slate-50 border-t-4 border-slate-900 px-6 py-3 text-right">
+                <button
+                  onClick={() => setShowResumeModal(false)}
+                  className="bg-white border-3 border-slate-900 text-slate-900 px-4 py-1.5 font-black text-xs uppercase tracking-tight shadow-[3px_3px_0px_0px_#1b1b1b] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_#ffdd33] active:translate-x-[0px] active:translate-y-[0px] active:shadow-[1px_1px_0px_0px_#1b1b1b] transition-all cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
